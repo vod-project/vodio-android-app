@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:tag="LoginFragmentTag"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.LoginFragment">
+
+    <!-- LOGIN LAYOUT -->
+    <RelativeLayout
+        android:layout_margin="50dp"
+        android:id="@+id/loginLayoutLogin"
+        android:padding="10dp"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/loginEditTextLogin"
+            style="@style/fieldStyle">
+            <EditText
+                android:hint="Email"
+                android:id="@+id/loginFieldLogin"
+                android:layout_width="match_parent"
+                android:maxLines="1"
+                android:singleLine="true"
+
+                android:layout_height="wrap_content" />
+
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/loginEditTextLogin"
+
+            android:id="@+id/passwordEditTextLogin"
+            style="@style/fieldStyle"
+            app:passwordToggleEnabled="true">
+            <EditText
+                android:inputType="textPassword"
+                android:hint="Password"
+                android:id="@+id/passwordFieldLogin"
+                android:maxLines="1"
+                android:singleLine="true"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:layout_below="@id/passwordEditTextLogin"
+            style="@style/buttonBlue"
+            android:text="sign in"
+            android:id="@+id/signInPerformButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_below="@id/signInPerformButton"
+            android:text="Forgot password?"
+            android:textColor="@color/darkBlueCustom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/passwordForgotLogin"
+            android:padding="5dp"/>
+
+
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/loginProgressBar"
+        android:layout_below="@id/loginLayoutLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"
+        android:indeterminate="true" />
+
+    <Button
+        android:id="@+id/signUpButton"
+        android:text="sign up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/transparentButton"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

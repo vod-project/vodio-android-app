@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "897251206268",
+    "firebase_url": "https://vodio-fe88f.firebaseio.com",
+    "project_id": "vodio-fe88f",
+    "storage_bucket": "vodio-fe88f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:897251206268:android:7048c79bd17fff25",
+        "android_client_info": {
+          "package_name": "app.vodio.com.vodio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "897251206268-tosn9kpnl65qnnksb106g2nvcu207jms.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.vodio.com.vodio",
+            "certificate_hash": "b6f677a19e6ab7a58cb0d92139b2510123445b1b"
+          }
+        },
+        {
+          "client_id": "897251206268-5p62mfg7cgoubv00ibjjcn0eg1o6cou3.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "897251206268-5p62mfg7cgoubv00ibjjcn0eg1o6cou3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYalNK95jS7372SNP8_qvGTfTSV9ss1kI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "897251206268-5p62mfg7cgoubv00ibjjcn0eg1o6cou3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

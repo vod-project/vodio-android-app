@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:tag="RegisterFragmentTag"
+    tools:context=".fragments.RegisterFragment">
+
+    <RelativeLayout
+        android:id="@+id/loginFieldsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_centerInParent="true"
+        android:padding="50dp">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/nameEditLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name"
+            style="@style/fieldStyle"
+            >
+            <EditText
+                android:id="@+id/nameFieldRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/loginEditLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nameEditLayout"
+            android:hint="Email"
+            style="@style/fieldStyle">
+            <EditText
+                android:id="@+id/loginFieldRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/passwordEditLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/loginEditLayout"
+            android:hint="Password"
+            style="@style/fieldStyle"
+            app:passwordToggleEnabled="true">
+            <EditText
+                android:id="@+id/passwordFieldRegister"
+                android:inputType="textPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/registerPerformButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/buttonBlue"
+
+            android:layout_below="@id/passwordEditLayout"
+            android:text="Register"/>
+
+
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/registerProgressBar"
+        android:layout_below="@id/loginFieldsLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:layout_centerHorizontal="true"
+        android:indeterminate="true" />
+
+</RelativeLayout>
