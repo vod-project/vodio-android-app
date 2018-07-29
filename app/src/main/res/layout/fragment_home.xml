@@ -22,4 +22,8 @@
         style="@style/buttonBlue"
         android:text="Sign out"/>
 
+    <com.tbuonomo.morphbottomnavigation.MorphBottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.tbuonomo.morphbottomnavigation.MorphBottomNavigationView>
+
 </RelativeLayout>
