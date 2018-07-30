@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -23,7 +24,13 @@
         android:text="Sign out"/>
 
     <com.tbuonomo.morphbottomnavigation.MorphBottomNavigationView
+        app:menu="@menu/menu_bottom_nav_bar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/bottomnavbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></com.tbuonomo.morphbottomnavigation.MorphBottomNavigationView>
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/darkBlueCustom"
+        ></com.tbuonomo.morphbottomnavigation.MorphBottomNavigationView>
 
 </RelativeLayout>

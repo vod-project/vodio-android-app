@@ -22,7 +22,6 @@
 
     <style name="transparentButton" parent="Widget.AppCompat.Button.Borderless">
         <item name="android:textColor">@color/darkBlueCustom</item>
-
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

@@ -2,11 +2,16 @@ package app.vodio.com.vodio.fragments;
 
 
 import android.os.Bundle;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputLayout;
+import com.tbuonomo.morphbottomnavigation.MorphBottomNavigationView;
+
 import androidx.fragment.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -41,6 +46,8 @@ public class RegisterFragment extends AbstractFragment{
     private TextInputLayout passwordEditLayout;
     private EditText passwordField;
 
+    private BottomNavigationView navBar;
+
     public RegisterFragment() {
         // Required empty public constructor
     }
@@ -60,6 +67,8 @@ public class RegisterFragment extends AbstractFragment{
         loginField = v.findViewById(R.id.loginFieldRegister);
         passwordEditLayout = v.findViewById(R.id.passwordEditLayout);
         passwordField = v.findViewById(R.id.passwordFieldRegister);
+
+        navBar = v.findViewById(R.id.bottomnavbar);
         return v;
     }
 
