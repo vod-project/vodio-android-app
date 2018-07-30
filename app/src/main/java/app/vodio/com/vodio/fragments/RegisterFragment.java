@@ -89,52 +89,65 @@ public class RegisterFragment extends AbstractFragment{
         parent.onItemSelected(itemId);
     }
 
-    private void checkFieldsAndUpdateView(boolean setErrorMessage){
-        checkNameAndUpdateView(setErrorMessage);
-        checkLoginAndUpdateView(setErrorMessage);
-        checkPasswordAndUpdateView(setErrorMessage);
+    private boolean checkFieldsAndUpdateView(boolean setErrorMessage){
+        return checkNameAndUpdateView(setErrorMessage) &&
+                checkLoginAndUpdateView(setErrorMessage) &&
+                    checkPasswordAndUpdateView(setErrorMessage);
     }
-    private void checkNameAndUpdateView(boolean setErrorMessage){
+    private boolean checkNameAndUpdateView(boolean setErrorMessage){
         String name = nameField.getText().toString();
+        boolean res =  false;
         List<AuthentificationChecker.AuthCheckResult> list = AuthentificationChecker.checkName(name);
         if(list.isEmpty()){
             nameEditLayout.setError("");
+            res = true;
         }else{
             if(setErrorMessage){
                 nameEditLayout.setError(AuthentificationChecker.checkName(name).toString());
             }
+            res = false;
         }
+        return res;
     }
-    private void checkLoginAndUpdateView(boolean setErrorMessage){
+    private boolean checkLoginAndUpdateView(boolean setErrorMessage){
         String login = loginField.getText().toString();
+        boolean res =  false;
         List<AuthentificationChecker.AuthCheckResult> list = AuthentificationChecker.checkLogin(login);
         if(list.isEmpty()){
             loginEditLayout.setError("");
+            res = true;
         }else{
             if(setErrorMessage){
                 loginEditLayout.setError(list.toString());
             }
+            res = false;
         }
+        return res;
     }
-    private void checkPasswordAndUpdateView(boolean setErrorMessage){
+    private boolean checkPasswordAndUpdateView(boolean setErrorMessage){
         String password = passwordField.getText().toString();
+        boolean res =  false;
         List<AuthentificationChecker.AuthCheckResult> list = AuthentificationChecker.checkPassword(password);
         if(list.isEmpty()){
             passwordEditLayout.setError("");
+            res = true;
         }else{
             if(setErrorMessage){
                 passwordEditLayout.setError(list.toString());
             }
+            res = false;
         }
+        return res;
     }
 
     private void performSignUp(){
         String name = nameField.getText().toString();
         String login = loginField.getText().toString();
         String password = passwordField.getText().toString();
-        List<AuthentificationChecker.AuthCheckResult> check = LoginService.signUp(login,password,name, new OnCompleteRegister());
-        if(check.size() != 0){
-            registrationFail();
+        if(checkFieldsAndUpdateView(true)){
+            LoginService.signUp(login,password,name, new OnCompleteRegister());
+        }else{
+            registrationFail("wrong fields");
         }
     }
 
@@ -143,8 +156,8 @@ public class RegisterFragment extends AbstractFragment{
         parentAct.authenticated();
     }
 
-    private void registrationFail(){
-        Toast.makeText(getContext(),"failed",Toast.LENGTH_SHORT).show();
+    private void registrationFail(String msg){
+        Toast.makeText(getContext(),msg,Toast.LENGTH_SHORT).show();
         checkFieldsAndUpdateView(true);
     }
 
@@ -157,7 +170,7 @@ public class RegisterFragment extends AbstractFragment{
 
         @Override
         public void onFail() {
-            registrationFail();
+            registrationFail("registration failed");
         }
     }
 

@@ -71,14 +71,16 @@ public class LoginFragment extends AbstractFragment{
     @Override
     public void onResume(){
         super.onResume();
+        // setup on click listeners
         signInButton.setOnClickListener(this);
         signUpButton.setOnClickListener(this);
         forgotPasswordView.setOnClickListener(this);
+        // setup on text change listener
         loginField.addTextChangedListener(new LoginPasswordTextWatcher());
         passwordField.addTextChangedListener(new LoginPasswordTextWatcher());
+        // setup error enabled for edit text
         tInputLayoutLogin.setErrorEnabled(true);
         tInputLayoutPassword.setErrorEnabled(true);
-        checkFieldsAndUpdateView(false);
     }
 
     @Override
@@ -108,7 +110,6 @@ public class LoginFragment extends AbstractFragment{
                 List<AuthentificationChecker.AuthCheckResult> list = AuthentificationChecker.checkLogin(login);
                 tInputLayoutLogin.setError(list.toString());
             }
-
             return false;
         }
     }
@@ -123,24 +124,22 @@ public class LoginFragment extends AbstractFragment{
                 List<AuthentificationChecker.AuthCheckResult> list = AuthentificationChecker.checkPassword(password);
                 tInputLayoutPassword.setError(list.toString());
             }
-
             return false;
         }
     }
 
-    public void checkFieldsAndUpdateView(boolean setErrorMessage){
-        checkLoginAndUpdateView(setErrorMessage);
-        checkPasswordAndUpdateView(setErrorMessage);
+    public boolean checkFieldsAndUpdateView(boolean setErrorMessage){
+        return checkLoginAndUpdateView(setErrorMessage) && checkPasswordAndUpdateView(setErrorMessage);
     }
 
     private void performSignIn(){
         String login = loginField.getText().toString();
         String password = passwordField.getText().toString();
         progressBar.setVisibility(View.VISIBLE);
-        List<AuthentificationChecker.AuthCheckResult> res = LoginService.signIn(login,password,new OnCompleteLogin());
-        if(res.size() != 0){
-            authenticationFail();
-
+        if(checkFieldsAndUpdateView(true)){
+            LoginService.signIn(login,password,new OnCompleteLogin());
+        }else{
+            authenticationFail("wrong fields");
         }
     }
 
@@ -149,10 +148,10 @@ public class LoginFragment extends AbstractFragment{
         parentAct.authenticated();
     }
 
-    private void authenticationFail() {
-        Toast.makeText(getContext(), "failed", Toast.LENGTH_SHORT).show();
+    private void authenticationFail(String msg) {
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
         progressBar.setVisibility(View.GONE);
-        checkFieldsAndUpdateView(true);
+        passwordField.setText("");
     }
 
     class LoginPasswordTextWatcher implements TextWatcher{
@@ -168,7 +167,6 @@ public class LoginFragment extends AbstractFragment{
     }
 
     class OnCompleteLogin implements OnCompleteAsyncTask{
-
         @Override
         public void onSuccess() {
             authenticationSuccess();
@@ -176,7 +174,7 @@ public class LoginFragment extends AbstractFragment{
 
         @Override
         public void onFail() {
-            authenticationFail();
+            authenticationFail("sign in failed");
         }
     }
 }
