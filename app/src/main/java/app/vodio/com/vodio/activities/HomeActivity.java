@@ -4,8 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.tbuonomo.morphbottomnavigation.MorphBottomNavigationView;
+
+import androidx.fragment.app.Fragment;
 import app.vodio.com.vodio.R;
+import app.vodio.com.vodio.fragments.BottomNavFragment;
 import app.vodio.com.vodio.fragments.HomeFragment;
 import app.vodio.com.vodio.services.LoginService;
 
@@ -16,7 +21,8 @@ public class HomeActivity extends AbstractActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         signOutButton = findViewById(R.id.sign_out);
-        showFragment(new HomeFragment());
+        showFragment(new BottomNavFragment(), R.id.layoutBottomBar);
+        showFragment(new HomeFragment(),R.id.mainHomeLayout);
     }
 
     @Override
@@ -34,6 +40,8 @@ public class HomeActivity extends AbstractActivity {
     public void onItemSelected(int itemId) {
         if(itemId == R.id.sign_out){
             performSignOut();
+        }if(itemId == R.id.recordVodFHome){
+            Toast.makeText(getApplicationContext(),"recording",Toast.LENGTH_LONG).show();
         }
     }
 

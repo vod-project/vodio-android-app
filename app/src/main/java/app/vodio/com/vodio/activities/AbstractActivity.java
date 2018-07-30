@@ -35,7 +35,7 @@ public abstract class AbstractActivity extends AppCompatActivity implements Frag
         }
     }
 
-    protected void showFragment(final Fragment fragment) {
+    protected void showFragment(final Fragment fragment, int idContainerView) {
         if (fragment == null) {
             return;
         }
@@ -45,7 +45,7 @@ public abstract class AbstractActivity extends AppCompatActivity implements Frag
         // We can also animate the changing of fragment.
         ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         // Replace current fragment by the new one.
-        ft.replace(getMainLayout(), fragment);
+        ft.replace(idContainerView, fragment);
         // Null on the back stack to return on the previous fragment when user
         // press on back button.
         ft.addToBackStack(null);

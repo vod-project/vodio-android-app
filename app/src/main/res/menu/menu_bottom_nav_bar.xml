@@ -28,7 +28,7 @@
         <item
             android:id="@+id/settings_navbar"
             android:icon="@drawable/ic_settings_icon_white"
-            android:title="Profile">
+            android:title="Settings">
         </item>
     </group>
 </menu>

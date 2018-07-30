@@ -7,33 +7,17 @@
     tools:context=".fragments.HomeFragment">
 
     <EditText
+        android:id="@+id/searchInList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="search..."
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"/>
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="You are logged in"
-        android:id="@+id/welcomeText"
-        android:layout_centerInParent="true"/>
+        android:hint="search..."/>
 
-
-
-    <com.tbuonomo.morphbottomnavigation.MorphBottomNavigationView
-        android:id="@+id/bottomnavbar"
+    <ListView
+        android:layout_below="@id/searchInList"
+        android:id="@+id/listOfPost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:menu="@menu/menu_bottom_nav_bar"
-        app:backgroundTint="@color/darkBlueCustom"
-        app:morphCornerRadius="128dp"
-        app:morphItemRadius="64dp"
-        app:morphVerticalOffset="5dp"
-        style="@style/BottomNavigationView"
-        />
+        ></ListView>
 
 
 </RelativeLayout>

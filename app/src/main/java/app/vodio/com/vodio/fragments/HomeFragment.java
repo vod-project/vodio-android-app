@@ -6,12 +6,18 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import app.vodio.com.vodio.R;
 import app.vodio.com.vodio.beans.User;
@@ -25,6 +31,7 @@ import app.vodio.com.vodio.services.LoginService;
  * create an instance of this fragment.
  */
 public class HomeFragment extends AbstractFragment{
+    private ListView listPosts;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -34,15 +41,22 @@ public class HomeFragment extends AbstractFragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
-        TextView tv = v.findViewById(R.id.welcomeText);
-        //User usr = LoginService.getLoggedIn();
-        //tv.setText("You are logged in as "+usr.getLogin());
+        listPosts = v.findViewById(R.id.listOfPost);
         return v;
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        ArrayAdapter<String>  adapter = new ArrayAdapter(getContext(), android.R.layout.simple_expandable_list_item_1, getList());
+        listPosts.setAdapter(adapter);
+    }
+    private List<String> getList(){
+        List<String> l = new ArrayList<>();
+        for(int i = 0 ; i < 20 ; i++ ){
+            l.add("Element "+i);
+        }
+        return l;
     }
 
     @Override

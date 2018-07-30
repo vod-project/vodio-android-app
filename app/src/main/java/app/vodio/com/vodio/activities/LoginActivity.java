@@ -22,7 +22,7 @@ public class LoginActivity extends AbstractActivity {
             startActivity(intent);
             finish();
         }else{
-            showFragment(new LoginFragment());
+            showFragment(new LoginFragment(),getMainLayout());
         }
     }
 
@@ -32,7 +32,7 @@ public class LoginActivity extends AbstractActivity {
         Intent intent = null;
         switch(itemId){
             case R.id.signUpButton:
-                showFragment(new RegisterFragment());
+                showFragment(new RegisterFragment(),getMainLayout());
                 break;
             case R.id.signInPerformButton:
                 //intent = new Intent(getApplicationContext(),HomeActivity.class);
