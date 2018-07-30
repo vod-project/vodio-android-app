@@ -46,8 +46,6 @@ public class RegisterFragment extends AbstractFragment{
     private TextInputLayout passwordEditLayout;
     private EditText passwordField;
 
-    private BottomNavigationView navBar;
-
     public RegisterFragment() {
         // Required empty public constructor
     }
@@ -67,8 +65,6 @@ public class RegisterFragment extends AbstractFragment{
         loginField = v.findViewById(R.id.loginFieldRegister);
         passwordEditLayout = v.findViewById(R.id.passwordEditLayout);
         passwordField = v.findViewById(R.id.passwordFieldRegister);
-
-        navBar = v.findViewById(R.id.bottomnavbar);
         return v;
     }
 

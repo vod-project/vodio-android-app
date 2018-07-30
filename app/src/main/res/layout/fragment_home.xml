@@ -18,19 +18,23 @@
         android:id="@+id/sign_out"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         style="@style/buttonBlue"
         android:text="Sign out"/>
 
     <com.tbuonomo.morphbottomnavigation.MorphBottomNavigationView
-        app:menu="@menu/menu_bottom_nav_bar"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/bottomnavbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:backgroundTint="@color/darkBlueCustom"
-        ></com.tbuonomo.morphbottomnavigation.MorphBottomNavigationView>
+        app:menu="@menu/menu_bottom_nav_bar"
+        app:backgroundTint="@color/darkBlueCustom"
+        app:morphCornerRadius="128dp"
+        app:morphItemRadius="64dp"
+        app:morphVerticalOffset="5dp"
+        style="@style/BottomNavigationView"
+        />
+
 
 </RelativeLayout>
