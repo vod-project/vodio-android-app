@@ -6,6 +6,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.HomeFragment">
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="search..."
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"/>
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="wrap_content"
@@ -14,14 +20,7 @@
         android:id="@+id/welcomeText"
         android:layout_centerInParent="true"/>
 
-    <Button
-        android:id="@+id/sign_out"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        style="@style/buttonBlue"
-        android:text="Sign out"/>
+
 
     <com.tbuonomo.morphbottomnavigation.MorphBottomNavigationView
         android:id="@+id/bottomnavbar"

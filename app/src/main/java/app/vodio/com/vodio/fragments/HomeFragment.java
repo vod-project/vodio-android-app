@@ -25,7 +25,6 @@ import app.vodio.com.vodio.services.LoginService;
  * create an instance of this fragment.
  */
 public class HomeFragment extends AbstractFragment{
-    private Button signOut;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -35,7 +34,6 @@ public class HomeFragment extends AbstractFragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
-        signOut = v.findViewById(R.id.sign_out);
         TextView tv = v.findViewById(R.id.welcomeText);
         //User usr = LoginService.getLoggedIn();
         //tv.setText("You are logged in as "+usr.getLogin());
@@ -45,7 +43,6 @@ public class HomeFragment extends AbstractFragment{
     @Override
     public void onResume() {
         super.onResume();
-        signOut.setOnClickListener(this);
     }
 
     @Override
