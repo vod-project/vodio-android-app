@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#34465d</color>
     <color name="darkBlueCustom">#34465d</color>
+    <color name="colorBottomNavBar">#CC750000</color>
+    <color name="colorBackgroundHome">#96979c</color>
 </resources>
