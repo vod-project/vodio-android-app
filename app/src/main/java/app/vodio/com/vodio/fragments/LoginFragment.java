@@ -94,12 +94,6 @@ public class LoginFragment extends AbstractFragment{
         onItemSelected(v.getId());
     }
 
-    public void onItemSelected(int itemId) {
-        if(parent != null) {
-            parent.onItemSelected(itemId);
-        }
-    }
-
     public boolean checkLoginAndUpdateView(boolean setErrorMessage){
         String login = loginField.getText().toString();
         if(AuthentificationChecker.checkLogin(login).isEmpty()){

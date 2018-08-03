@@ -4,7 +4,8 @@
         <item
             android:id="@+id/bedroom_navbar"
             android:icon="@drawable/ic_bedroom_icon_white"
-            android:title="Chambre">
+            android:title="Chambre"
+            >
         </item>
 
         <item

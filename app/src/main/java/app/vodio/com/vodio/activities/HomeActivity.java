@@ -2,13 +2,7 @@ package app.vodio.com.vodio.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
-
-import com.tbuonomo.morphbottomnavigation.MorphBottomNavigationView;
-
-import java.util.Random;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -18,10 +12,7 @@ import app.vodio.com.vodio.R;
 import app.vodio.com.vodio.fragments.ActuFragment;
 import app.vodio.com.vodio.fragments.BottomNavFragment;
 import app.vodio.com.vodio.fragments.ChambreFragment;
-import app.vodio.com.vodio.fragments.HomeFragment;
-import app.vodio.com.vodio.fragments.LoginFragment;
 import app.vodio.com.vodio.fragments.ProfileFragment;
-import app.vodio.com.vodio.fragments.RegisterFragment;
 import app.vodio.com.vodio.fragments.SalonFragment;
 import app.vodio.com.vodio.fragments.SettingsFragment;
 import app.vodio.com.vodio.services.LoginService;
@@ -48,7 +39,6 @@ public class HomeActivity extends AbstractActivity {
 
 
         showFragment(bottomFragment, R.id.layoutBottomBar);
-        //showFragment(new HomeFragment(),R.id.mainHomeLayout);
     }
 
     @Override

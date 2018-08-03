@@ -85,10 +85,6 @@ public class RegisterFragment extends AbstractFragment{
         onItemSelected(v.getId());
     }
 
-    public void onItemSelected(int itemId){
-        parent.onItemSelected(itemId);
-    }
-
     private boolean checkFieldsAndUpdateView(boolean setErrorMessage){
         return checkNameAndUpdateView(setErrorMessage) &&
                 checkLoginAndUpdateView(setErrorMessage) &&

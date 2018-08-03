@@ -15,4 +15,9 @@ public abstract class AbstractFragment extends Fragment implements View.OnClickL
         parent = (FragmentCallBack) act;
     }
 
+    public void onItemSelected(int itemId){
+        if(parent != null){
+            parent.onItemSelected(itemId);
+        }
+    }
 }
