@@ -59,7 +59,7 @@ public class ActuFragment extends AbstractFragment {
             public void onFail() {
                 // stop load view
             }
-        });
+        },getContext());
         // load view
         taskActus.execute();
     }

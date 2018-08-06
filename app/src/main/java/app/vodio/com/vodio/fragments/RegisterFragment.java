@@ -141,7 +141,7 @@ public class RegisterFragment extends AbstractFragment{
         String login = loginField.getText().toString();
         String password = passwordField.getText().toString();
         if(checkFieldsAndUpdateView(true)){
-            LoginService.signUp(login,password,name, new OnCompleteRegister());
+            LoginService.signUp(login,password,name, new OnCompleteRegister(), getContext());
         }else{
             registrationFail("wrong fields");
         }

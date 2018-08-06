@@ -1,5 +1,7 @@
 package app.vodio.com.vodio.database;
 
+import android.content.Context;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,6 +16,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import app.vodio.com.vodio.R;
 import app.vodio.com.vodio.beans.User;
 import app.vodio.com.vodio.services.LoginService;
 import app.vodio.com.vodio.utils.MyAsyncTask;
@@ -22,14 +25,15 @@ import app.vodio.com.vodio.utils.OnCompleteAsyncTask;
 
 public  class UserMapper {
     private static User currentUser;
-    private static String host = "http://www.assimsen.fr/vodio/rest";
 
     public static class GetUserTask extends MyAsyncTask<User> {
         private String login;private String password;
         private String path = "/user/get.php";
+        private String host;
         private User usr;
-        public GetUserTask(String login, String password, OnCompleteAsyncTask onComplete){
-            super(onComplete);
+        public GetUserTask(String login, String password, OnCompleteAsyncTask onComplete, Context c){
+            super(onComplete,c);
+            host = c.getString(R.string.host_database);
             this.login = login;this.password = password;
         }
 
@@ -59,10 +63,12 @@ public  class UserMapper {
     public static class CreateUserTask extends MyAsyncTask<DatabaseResponse>{
         private User usr;
         private DatabaseResponse response = null;
+        private String host;
         private String path = "/user/create.php";
-        public CreateUserTask(User user,OnCompleteAsyncTask onComplete){
-            super(onComplete);
+        public CreateUserTask(User user,OnCompleteAsyncTask onComplete, Context c){
+            super(onComplete,c);
             usr = user;
+            host = c.getString(R.string.host_database);
         }
         @Override
         protected Object doInBackground(Object[] objects) {

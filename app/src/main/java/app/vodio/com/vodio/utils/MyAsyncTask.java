@@ -1,11 +1,14 @@
 package app.vodio.com.vodio.utils;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
 public abstract class MyAsyncTask<T>  extends AsyncTask{
     private boolean isSuccess = false;
     private OnCompleteAsyncTask onComplete;
-    public MyAsyncTask(OnCompleteAsyncTask onComplete){
+    protected Context context;
+    public MyAsyncTask(OnCompleteAsyncTask onComplete, Context c){
+        context = c;
         this.onComplete = onComplete;
     }
     @Override

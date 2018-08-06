@@ -1,5 +1,6 @@
 package app.vodio.com.vodio.services;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
 import java.util.List;
@@ -15,17 +16,18 @@ public class LoginService {
     public static void setLoggedIn(User usr){loggedIn = usr;}
     public static User getLoggedIn(){return loggedIn;}
 
-    public static void signIn(String login, String password, OnCompleteAsyncTask onComplete){
-        AsyncTask getTask = new UserMapper.GetUserTask(login,password, onComplete);
+    public static void signIn(String login, String password, OnCompleteAsyncTask onComplete, Context c){
+        AsyncTask getTask = new UserMapper.GetUserTask(login,password, onComplete, c);
         getTask.execute();
     }
 
-    public static List<AuthentificationChecker.AuthCheckResult> signUp(String login, String password,String name, OnCompleteAsyncTask onComplete) {
+    public static List<AuthentificationChecker.AuthCheckResult> signUp(String login, String password,
+                                                                       String name, OnCompleteAsyncTask onComplete, Context c) {
         List<AuthentificationChecker.AuthCheckResult> checkResult = AuthentificationChecker.check(login, password,name);
         if(checkResult.size() == 0) {
             final User usr = new User();
             usr.setLogin(login);usr.setPassword(password);usr.setName(name);
-            AsyncTask createTask = new UserMapper.CreateUserTask(usr, onComplete);
+            AsyncTask createTask = new UserMapper.CreateUserTask(usr, onComplete, c);
             createTask.execute();
         }
         return checkResult;

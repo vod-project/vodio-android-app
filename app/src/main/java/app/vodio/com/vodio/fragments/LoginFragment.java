@@ -131,7 +131,7 @@ public class LoginFragment extends AbstractFragment{
         String password = passwordField.getText().toString();
         progressBar.setVisibility(View.VISIBLE);
         if(checkFieldsAndUpdateView(true)){
-            LoginService.signIn(login,password,new OnCompleteLogin());
+            LoginService.signIn(login,password,new OnCompleteLogin(), getContext());
         }else{
             authenticationFail("wrong fields");
         }
