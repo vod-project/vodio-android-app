@@ -11,6 +11,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import app.vodio.com.vodio.beans.User;
 import app.vodio.com.vodio.services.LoginService;
@@ -22,8 +24,10 @@ public  class UserMapper {
     private static User currentUser;
     private static String host = "http://www.assimsen.fr/vodio/rest";
 
-    public static class GetUserTask extends MyAsyncTask {
+    public static class GetUserTask extends MyAsyncTask<User> {
         private String login;private String password;
+        private String path = "/user/get.php";
+        private User usr;
         public GetUserTask(String login, String password, OnCompleteAsyncTask onComplete){
             super(onComplete);
             this.login = login;this.password = password;
@@ -31,124 +35,56 @@ public  class UserMapper {
 
         @Override
         public Object doInBackground(Object[] objects) {
-            boolean res = false;
-            // Create URL
-            URL createUrl = null;
-            try {
-                String url = host + "/user/get.php";
-                String parameter = String.format("?login=%s",login);
-                if(password != null){
-                    parameter += "&password="+password;
-                }
-                createUrl = new URL(url+parameter);
-                // Create connection
-                HttpURLConnection myConnection =
-                        (HttpURLConnection) createUrl.openConnection();
-
-                if (myConnection.getResponseCode() == 200) {
-                    // Success
-                    // Further processing here
-                    InputStream responseBody = myConnection.getInputStream();
-
-                    InputStreamReader responseBodyReader =
-                            new InputStreamReader(responseBody, "UTF-8");
-
-                    JSONObject obj = inputStreamReaderToJSONObject(responseBodyReader);
-
-                    User usr = new User(obj);
-                    if(usr.isProvided()){
-                        LoginService.setLoggedIn(usr);
-                        res = true;
-                    }
-                }
-            } catch (MalformedURLException e) {} catch (IOException e) {}
-            setSuccess(res);
+            Map<String, String> map = new HashMap<>();
+            map.put("login",login);
+            if(password != null){map.put("password",password);}
+            JSONObject obj = HTTPUtils.getObject(host,path,map);
+            if(obj != null){
+                usr = new User(obj);
+                setSuccess(usr.isProvided());
+            }else{
+                setSuccess(false);
+            }
+            if(usr.isProvided()){LoginService.setLoggedIn(usr);}
             return null;
+
         }
 
         @Override
-        public Object getObject() {
-            return null;
+        public User getObject() {
+            return usr;
         }
     }
 
-    public static class CreateUserTask extends MyAsyncTask{
+    public static class CreateUserTask extends MyAsyncTask<DatabaseResponse>{
         private User usr;
+        private DatabaseResponse response = null;
+        private String path = "/user/create.php";
         public CreateUserTask(User user,OnCompleteAsyncTask onComplete){
             super(onComplete);
             usr = user;
         }
         @Override
         protected Object doInBackground(Object[] objects) {
-            boolean res = false;
-            // Create URL
-            URL createUrl = null;
-            try {
-                String url = host + "/user/create.php";
-                String parameter = String.format("?login=%s&password=%s&name=%s",usr.getLogin(),usr.getPassword(),usr.getName());
-                createUrl = new URL(url+parameter);
-                // Create connection
-                HttpURLConnection myConnection =
-                        (HttpURLConnection) createUrl.openConnection();
-
-                if (myConnection.getResponseCode() == 200) {
-                    // Success
-                    // Further processing here
-                    InputStream responseBody = myConnection.getInputStream();
-                    InputStreamReader responseBodyReader =
-                            new InputStreamReader(responseBody, "UTF-8");
-
-                    JSONObject obj = inputStreamReaderToJSONObject(responseBodyReader);
-                    DatabaseResponse response = new DatabaseResponse(obj);
-                    if(response.getResult()){
-                        LoginService.setLoggedIn(usr);
-                        res = true;
-                    }
-                }
-            } catch (MalformedURLException e) {
-                //onFail.run();
-            } catch (IOException e) {
-                //onFail.run();
+            Map<String, String> map = new HashMap<>();
+            map.put("login",usr.getLogin());
+            map.put("password",usr.getPassword());
+            map.put("name",usr.getName());
+            map.put("email",usr.getEmail());
+            map.put("surname",usr.getSurname());
+            JSONObject obj = HTTPUtils.getObject(host,path,map);
+            if(obj != null) {
+                response = new DatabaseResponse(obj);
+                setSuccess(response.getResult());
+            }else {
+                setSuccess(false);
             }
-            setSuccess(res);
             return null;
         }
 
         @Override
-        public Object getObject() {
-            return null;
+        public DatabaseResponse getObject() {
+            return response;
         }
-    }
-
-    public static JSONObject inputStreamReaderToJSONObject(InputStreamReader inputStreamReader) throws IOException {
-        JSONObject obj = null;
-        StringBuilder sBuilder = new StringBuilder();
-        BufferedReader bReader = new BufferedReader(inputStreamReader);
-        String input;
-        while ((input = bReader.readLine()) != null) {
-            sBuilder.append(input);
-        }
-        try {
-            obj = new JSONObject(sBuilder.toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return obj;
-    }
-
-    public static JSONArray inputStreamReaderToJSonArray(InputStreamReader inputStreamReader) throws IOException{
-        JSONArray obj = null;
-        StringBuilder sBuilder = new StringBuilder();
-        BufferedReader bReader = new BufferedReader(inputStreamReader);
-        String input;
-        while ((input = bReader.readLine()) != null) {
-            sBuilder.append(input);
-        }
-        try {
-            obj = new JSONArray(sBuilder.toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return obj;
     }
 }

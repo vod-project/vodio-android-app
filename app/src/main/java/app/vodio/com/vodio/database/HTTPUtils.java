@@ -1,21 +1,17 @@
 package app.vodio.com.vodio.database;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 import java.util.Map;
-
-import app.vodio.com.vodio.services.LoginService;
-
-import static app.vodio.com.vodio.database.UserMapper.inputStreamReaderToJSONObject;
-import static app.vodio.com.vodio.database.UserMapper.inputStreamReaderToJSonArray;
 
 public class HTTPUtils {
 
@@ -60,7 +56,7 @@ public class HTTPUtils {
                 String name = e.getKey();
                 String val = e.getValue();
                 paramStr += name+"="+val;
-                if(!( current != n)){
+                if( current != n){
                     paramStr+="&";
                 }
                 current++;
@@ -92,4 +88,37 @@ public class HTTPUtils {
         }
         return null;
     }
+
+    public static JSONObject inputStreamReaderToJSONObject(InputStreamReader inputStreamReader) throws IOException {
+        JSONObject obj = null;
+        StringBuilder sBuilder = new StringBuilder();
+        BufferedReader bReader = new BufferedReader(inputStreamReader);
+        String input;
+        while ((input = bReader.readLine()) != null) {
+            sBuilder.append(input);
+        }
+        try {
+            obj = new JSONObject(sBuilder.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
+
+    public static JSONArray inputStreamReaderToJSonArray(InputStreamReader inputStreamReader) throws IOException{
+        JSONArray obj = null;
+        StringBuilder sBuilder = new StringBuilder();
+        BufferedReader bReader = new BufferedReader(inputStreamReader);
+        String input;
+        while ((input = bReader.readLine()) != null) {
+            sBuilder.append(input);
+        }
+        try {
+            obj = new JSONArray(sBuilder.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
+
 }

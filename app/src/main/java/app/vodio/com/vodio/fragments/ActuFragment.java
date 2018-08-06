@@ -1,10 +1,6 @@
 package app.vodio.com.vodio.fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,28 +48,19 @@ public class ActuFragment extends AbstractFragment {
         final List<Vod> list = new ArrayList<>();
         final ArrayAdapter<Vod> adapter = new VodAdapter(getContext(), android.R.layout.simple_expandable_list_item_1, list);
         listPosts.setAdapter(adapter);
-        MyAsyncTask taskActus = new VodMapper.GetVodTask(new OnCompleteAsyncTask() {
+        MyAsyncTask<List<Vod>> taskActus = new VodMapper.GetListVodTask(new OnCompleteAsyncTask() {
             @Override
             public void onSuccess(Object obj) {
-                JSONArray array = (JSONArray)obj;
-                Toast.makeText(getContext(),array.length()+"",Toast.LENGTH_LONG).show();
-                for(int i = 0; i < array.length();i++){
-                    try {
-                        JSONObject object = array.getJSONObject(i);
-                        Vod vod = new Vod(object);
-                        adapter.add(vod);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
+                // stop load view
+                List<Vod> list = (List<Vod>)obj;
+                adapter.addAll(list);
             }
-
             @Override
             public void onFail() {
-
+                // stop load view
             }
         });
+        // load view
         taskActus.execute();
     }
 

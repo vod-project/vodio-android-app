@@ -2,16 +2,14 @@ package app.vodio.com.vodio.utils;
 
 import android.os.AsyncTask;
 
-public abstract class MyAsyncTask  extends AsyncTask{
+public abstract class MyAsyncTask<T>  extends AsyncTask{
     private boolean isSuccess = false;
     private OnCompleteAsyncTask onComplete;
     public MyAsyncTask(OnCompleteAsyncTask onComplete){
         this.onComplete = onComplete;
     }
     @Override
-    protected Object doInBackground(Object[] objects) {
-        return null;
-    }
+    protected abstract Object doInBackground(Object[] objects);
 
     protected void setSuccess(boolean s){
         isSuccess = s;
@@ -28,5 +26,5 @@ public abstract class MyAsyncTask  extends AsyncTask{
         }
     }
 
-    public abstract Object getObject();
+    public abstract T getObject();
 }
