@@ -162,7 +162,7 @@ public class LoginFragment extends AbstractFragment{
 
     class OnCompleteLogin implements OnCompleteAsyncTask{
         @Override
-        public void onSuccess() {
+        public void onSuccess(Object obj) {
             authenticationSuccess();
         }
 

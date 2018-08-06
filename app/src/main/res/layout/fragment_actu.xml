@@ -10,9 +10,11 @@
         android:id="@+id/searchInList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="15dp"
         android:hint="search..."/>
 
     <ListView
+        android:layout_margin="5dp"
         android:layout_below="@id/searchInList"
         android:id="@+id/listOfPost"
         android:layout_width="match_parent"

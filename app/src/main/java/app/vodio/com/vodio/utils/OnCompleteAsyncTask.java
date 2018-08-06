@@ -1,6 +1,6 @@
 package app.vodio.com.vodio.utils;
 
 public interface OnCompleteAsyncTask {
-    void onSuccess();
+    void onSuccess(Object obj);
     void onFail();
 }

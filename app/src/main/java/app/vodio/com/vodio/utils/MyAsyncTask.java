@@ -19,10 +19,14 @@ public abstract class MyAsyncTask  extends AsyncTask{
     @Override
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
-        if(isSuccess){
-            onComplete.onSuccess();
-        }else{
-            onComplete.onFail();
+        if(onComplete != null) {
+            if (isSuccess) {
+                onComplete.onSuccess(getObject());
+            } else {
+                onComplete.onFail();
+            }
         }
     }
+
+    public abstract Object getObject();
 }

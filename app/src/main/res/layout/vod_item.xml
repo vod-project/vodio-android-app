@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    style="@style/backgroundItem">
+
+    <TextView
+        android:layout_marginBottom="10dp"
+        android:id="@+id/titleTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="title"
+        android:layout_centerHorizontal="true" />
+
+    <RelativeLayout
+        android:layout_margin="15dp"
+        android:id="@+id/authorDataLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:id="@+id/profile_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_profile_icon_black"
+            />
+        <TextView
+            android:id="@+id/authorTv"
+            android:layout_below="@id/profile_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mr ABCDE"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/mediaLayout"
+        android:layout_toEndOf="@id/authorDataLayout"
+        android:layout_toStartOf="@id/shareButton"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageButton
+
+            android:layout_alignParentLeft="true"
+            android:id="@+id/playButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/transparent"
+            android:src="@android:drawable/ic_media_play"/>
+        <MediaController
+            android:id="@+id/mediaController"
+            android:layout_toEndOf="@id/playButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            ></MediaController>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dureeTv"
+            android:layout_below="@id/playButton"
+            android:text="Durée : "/>
+        <TextView
+            android:id="@+id/timeTv"
+            android:layout_below="@id/playButton"
+            android:layout_toRightOf="@id/dureeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1:30"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Commenter"
+        android:textColor="@android:color/holo_blue_dark"
+        android:layout_below="@id/mediaLayout"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
+        />
+    <ImageButton
+        android:id="@+id/shareButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_menu_share"
+        android:backgroundTint="@android:color/transparent"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        />
+
+
+</RelativeLayout>

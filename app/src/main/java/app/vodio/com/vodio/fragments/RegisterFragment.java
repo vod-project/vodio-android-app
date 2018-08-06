@@ -160,7 +160,7 @@ public class RegisterFragment extends AbstractFragment{
     class OnCompleteRegister implements OnCompleteAsyncTask{
 
         @Override
-        public void onSuccess() {
+        public void onSuccess(Object obj) {
             registrationSuccess();
         }
 

@@ -1,5 +1,6 @@
 package app.vodio.com.vodio.database;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -64,6 +65,11 @@ public  class UserMapper {
             setSuccess(res);
             return null;
         }
+
+        @Override
+        public Object getObject() {
+            return null;
+        }
     }
 
     public static class CreateUserTask extends MyAsyncTask{
@@ -107,6 +113,11 @@ public  class UserMapper {
             setSuccess(res);
             return null;
         }
+
+        @Override
+        public Object getObject() {
+            return null;
+        }
     }
 
     public static JSONObject inputStreamReaderToJSONObject(InputStreamReader inputStreamReader) throws IOException {
@@ -119,6 +130,22 @@ public  class UserMapper {
         }
         try {
             obj = new JSONObject(sBuilder.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
+
+    public static JSONArray inputStreamReaderToJSonArray(InputStreamReader inputStreamReader) throws IOException{
+        JSONArray obj = null;
+        StringBuilder sBuilder = new StringBuilder();
+        BufferedReader bReader = new BufferedReader(inputStreamReader);
+        String input;
+        while ((input = bReader.readLine()) != null) {
+            sBuilder.append(input);
+        }
+        try {
+            obj = new JSONArray(sBuilder.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }

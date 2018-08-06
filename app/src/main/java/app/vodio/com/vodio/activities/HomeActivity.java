@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import app.vodio.com.vodio.R;
+import app.vodio.com.vodio.database.VodMapper;
 import app.vodio.com.vodio.fragments.ActuFragment;
 import app.vodio.com.vodio.fragments.BottomNavFragment;
 import app.vodio.com.vodio.fragments.ChambreFragment;
@@ -16,6 +19,8 @@ import app.vodio.com.vodio.fragments.ProfileFragment;
 import app.vodio.com.vodio.fragments.SalonFragment;
 import app.vodio.com.vodio.fragments.SettingsFragment;
 import app.vodio.com.vodio.services.LoginService;
+import app.vodio.com.vodio.utils.MyAsyncTask;
+import app.vodio.com.vodio.utils.OnCompleteAsyncTask;
 
 public class HomeActivity extends AbstractActivity {
     private ViewPager viewPager;
@@ -58,9 +63,9 @@ public class HomeActivity extends AbstractActivity {
 
     @Override
     public void onItemSelected(int itemId) {
-        if(itemId == R.id.sign_out){
+        /*if(itemId == R.id.sign_out){
             performSignOut();
-        }else if(itemId == R.id.recordVodFHome){
+        }else */if(itemId == R.id.recordVodFHome){
             Toast.makeText(getApplicationContext(),"recording",Toast.LENGTH_LONG).show();
         }
     }

@@ -11,11 +11,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import app.vodio.com.vodio.R;
+import app.vodio.com.vodio.beans.Vod;
+import app.vodio.com.vodio.database.VodMapper;
+import app.vodio.com.vodio.utils.MyAsyncTask;
+import app.vodio.com.vodio.utils.OnCompleteAsyncTask;
+import app.vodio.com.vodio.views.VodAdapter;
 
 
 public class ActuFragment extends AbstractFragment {
@@ -39,8 +49,32 @@ public class ActuFragment extends AbstractFragment {
     @Override
     public void onResume() {
         super.onResume();
-        ArrayAdapter<String> adapter = new ArrayAdapter(getContext(), android.R.layout.simple_expandable_list_item_1, getList());
+        final List<Vod> list = new ArrayList<>();
+        final ArrayAdapter<Vod> adapter = new VodAdapter(getContext(), android.R.layout.simple_expandable_list_item_1, list);
         listPosts.setAdapter(adapter);
+        MyAsyncTask taskActus = new VodMapper.GetVodTask(new OnCompleteAsyncTask() {
+            @Override
+            public void onSuccess(Object obj) {
+                JSONArray array = (JSONArray)obj;
+                Toast.makeText(getContext(),array.length()+"",Toast.LENGTH_LONG).show();
+                for(int i = 0; i < array.length();i++){
+                    try {
+                        JSONObject object = array.getJSONObject(i);
+                        Vod vod = new Vod(object);
+                        adapter.add(vod);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
+        taskActus.execute();
     }
 
     @Override
