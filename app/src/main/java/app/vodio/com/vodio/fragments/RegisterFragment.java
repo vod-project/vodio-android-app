@@ -24,9 +24,13 @@ import java.util.List;
 
 import app.vodio.com.vodio.R;
 import app.vodio.com.vodio.activities.LoginActivity;
+import app.vodio.com.vodio.database.DatabaseResponse;
 import app.vodio.com.vodio.services.LoginService;
 import app.vodio.com.vodio.utils.AuthentificationChecker;
 import app.vodio.com.vodio.utils.OnCompleteAsyncTask;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -141,7 +145,7 @@ public class RegisterFragment extends AbstractFragment{
         String login = loginField.getText().toString();
         String password = passwordField.getText().toString();
         if(checkFieldsAndUpdateView(true)){
-            LoginService.signUp(login,password,name, new OnCompleteRegister(), getContext());
+            LoginService.getInstance().signUp(login,password,name, new OnCompleteRegister(), getContext());
         }else{
             registrationFail("wrong fields");
         }
@@ -157,8 +161,7 @@ public class RegisterFragment extends AbstractFragment{
         checkFieldsAndUpdateView(true);
     }
 
-    class OnCompleteRegister implements OnCompleteAsyncTask{
-
+    class OnCompleteRegister implements OnCompleteAsyncTask {
         @Override
         public void onSuccess(Object obj) {
             registrationSuccess();

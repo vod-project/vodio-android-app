@@ -78,7 +78,7 @@ public class HomeActivity extends AbstractActivity {
     public void onBackPressed() {}
 
     private void performSignOut(){
-        LoginService.setLoggedIn(null);
+        LoginService.getInstance().setLoggedIn(null);
         Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
         startActivity(intent);
         finish();

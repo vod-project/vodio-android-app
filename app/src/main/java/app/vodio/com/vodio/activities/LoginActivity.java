@@ -16,7 +16,7 @@ public class LoginActivity extends AbstractActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
-        User usr = LoginService.getLoggedIn();
+        User usr = LoginService.getInstance().getLoggedIn();
         if(usr != null){
             Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
             startActivity(intent);

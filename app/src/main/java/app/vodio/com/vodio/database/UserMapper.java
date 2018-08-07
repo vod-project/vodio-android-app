@@ -49,7 +49,7 @@ public  class UserMapper {
             }else{
                 setSuccess(false);
             }
-            if(usr.isProvided()){LoginService.setLoggedIn(usr);}
+            if(usr.isProvided()){LoginService.getInstance().setLoggedIn(usr);}
             return null;
 
         }
@@ -81,7 +81,7 @@ public  class UserMapper {
             JSONObject obj = HTTPUtils.getObject(host,path,map);
             if(obj != null) {
                 response = new DatabaseResponse(obj);
-                setSuccess(response.getResult());
+                setSuccess(response.getResultCode() == 0);
             }else {
                 setSuccess(false);
             }

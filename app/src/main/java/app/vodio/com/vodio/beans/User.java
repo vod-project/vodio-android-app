@@ -68,6 +68,11 @@ public class User {
         }
     }
     public boolean isProvided(){
+        if(name == null && surname == null && login == null && email == null){
+            isProvided = false;
+        }else {
+            isProvided = true;
+        }
         return isProvided;
     }
     public String getSurname() {
