@@ -19,12 +19,6 @@ public class DatabaseResponse {
     private void provideFromJsonObject(JSONObject obj) throws JSONException {
         resultCode = Integer.parseInt(obj.get("result").toString());
     }
-    private void provideFromJson(JsonReader reader) throws IOException {
-        reader.beginObject();
-        reader.nextName();
-        resultCode = reader.nextInt();
-    }
-
     public int getResultCode(){
         return resultCode;
     }
