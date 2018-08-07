@@ -4,32 +4,32 @@
         <item
             android:id="@+id/bedroom_navbar"
             android:icon="@drawable/ic_bedroom_icon_white"
-            android:title="Chambre"
+            android:title="@string/bedroom_name"
             >
         </item>
 
         <item
             android:id="@+id/salon_navbar"
             android:icon="@drawable/ic_salon_icon_white"
-            android:title="Salon">
+            android:title="@string/salon_name">
         </item>
 
         <item
             android:id="@+id/profile_navbar"
             android:icon="@drawable/ic_profile_icon_white"
-            android:title="Profile">
+            android:title="@string/profile_name">
         </item>
 
         <item
             android:id="@+id/actu_navbar"
             android:icon="@drawable/ic_actu_icon_black"
-            android:title="Actu">
+            android:title="@string/actu_name">
         </item>
 
         <item
             android:id="@+id/settings_navbar"
             android:icon="@drawable/ic_settings_icon_white"
-            android:title="Settings">
+            android:title="@string/settings_name">
         </item>
     </group>
 </menu>
