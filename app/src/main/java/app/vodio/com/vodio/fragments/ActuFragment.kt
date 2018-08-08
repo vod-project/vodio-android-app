@@ -5,20 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.ListView
-import android.widget.Toast
-
-import org.json.JSONArray
-import org.json.JSONException
-import org.json.JSONObject
 
 import java.util.ArrayList
 
 import app.vodio.com.vodio.R
 import app.vodio.com.vodio.beans.Vod
-import app.vodio.com.vodio.database.VodMapper
-import app.vodio.com.vodio.utils.MyAsyncTask
+import app.vodio.com.vodio.services.VodService
 import app.vodio.com.vodio.utils.OnCompleteAsyncTask
 import app.vodio.com.vodio.views.VodAdapter
 
@@ -53,6 +46,17 @@ class ActuFragment : AbstractFragment() {
         val list = ArrayList<Vod>()
         val adapter = VodAdapter(context, android.R.layout.simple_expandable_list_item_1, list)
         listPosts!!.adapter = adapter
+        VodService().getVods(object : OnCompleteAsyncTask {
+            override fun onSuccess(obj: Any) {
+                // stop load view
+                val array = obj as Array<Vod>
+                adapter.addAll(array.toList())
+            }
+            override fun onFail() {
+                // stop load view
+            }
+        })
+        /*
         val taskActus = VodMapper.GetListVodTask(object : OnCompleteAsyncTask {
             override fun onSuccess(obj: Any) {
                 // stop load view
@@ -65,7 +69,7 @@ class ActuFragment : AbstractFragment() {
             }
         }, context)
         // load view
-        taskActus.execute()
+        taskActus.execute()*/
     }
 
     override fun onClick(view: View) {
