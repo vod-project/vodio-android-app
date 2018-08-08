@@ -19,7 +19,6 @@ import com.tbuonomo.morphbottomnavigation.MorphBottomNavigationView;
 import java.util.Collections;
 
 import app.vodio.com.vodio.R;
-import app.vodio.com.vodio.activities.AbstractActivity;
 import app.vodio.com.vodio.activities.HomeActivity;
 
 
@@ -39,7 +38,6 @@ public class BottomNavFragment extends AbstractFragment {
         View v = inflater.inflate(R.layout.fragment_bottom_nav, container, false);
         recordVodBottom=v.findViewById(R.id.recordVodFHome);
         navbar = v.findViewById(R.id.bottomnavbar);
-
         // Inflate the layout for this fragment
         return v;
     }

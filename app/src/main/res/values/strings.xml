@@ -21,9 +21,7 @@
     <string name="password_field_hint">Mot de Passe</string>
     <string name="sign_in_button_text">Se Connecter</string>
     <string name="forgot_password_button_text">Mot de passe oublié?</string>
-    <string name="sign_up_button_text">S'Inscrire</string>
-    <string name="sign_in_button_text">Sign In</string>
-    <string name="sign_in_button_text">Sign In</string>
+    <string name="sign_up_button_text">S\'Inscrire</string>
 
 
     <!-- DATABASE STRINGS -->

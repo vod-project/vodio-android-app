@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import app.vodio.com.vodio.R;
+
 import app.vodio.com.vodio.beans.User;
 import app.vodio.com.vodio.fragments.LoginFragment;
 import app.vodio.com.vodio.fragments.RegisterFragment;

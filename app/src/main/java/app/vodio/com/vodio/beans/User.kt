@@ -1,12 +1,42 @@
-package app.vodio.com.vodio.beans;
+package app.vodio.com.vodio.beans
 
 import android.util.JsonReader;
-
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
+data class User(var name : String?, var surname : String?, var login : String?, var email : String?, var password : String){
 
+    constructor(reader: JsonReader): this("","","","",""){
+        provideFromJsonReader(reader)
+    }
+    constructor(jsonObject: JSONObject): this("","","","",""){
+        provideFromJsonObject(jsonObject)
+    }
+
+    fun provideFromJsonReader(reader: JsonReader){
+
+    }
+
+    fun isProvided() : Boolean {
+        var isProvided = false;
+        if(! (name == null && surname == null && login == null && email == null)){
+            isProvided = true;
+        }
+        return isProvided;
+    }
+    fun provideFromJsonObject(obj: JSONObject){
+        name = checkStringJsonData(obj.get("name").toString());
+        surname = checkStringJsonData(obj.get("surname").toString());
+        login = checkStringJsonData(obj.get("login").toString());
+        email = checkStringJsonData(obj.get("email").toString());
+    }
+    fun checkStringJsonData(str : String) : String?{
+        if(str.equals("null")){
+            return null
+        }
+        return str;
+    }
+}
+/*
 public class User {
     String name;
     String surname;
@@ -29,9 +59,6 @@ public class User {
         } catch (JSONException e) {
             isProvided = false;
         }
-    }
-    public User(){
-
     }
     private void provideFromJsonObject(JSONObject obj) throws JSONException {
 
@@ -115,3 +142,4 @@ public class User {
         this.name = name;
     }
 }
+*/
