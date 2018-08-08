@@ -28,7 +28,7 @@ public class LoginService {
     public void signIn(String login, String password, OnCompleteAsyncTask onComplete, Context c){
         //AsyncTask getTask = new UserMapper.GetUserTask(login,password, onComplete, c);
         //getTask.execute();
-        UserService service = RetrofitInstance.getRetrofitInstance().create(UserService.class);
+        UserService service = RetrofitInstance.Companion.getRetrofitInstance().create(UserService.class);
 
         Call<User> call = service.getUser(login,password);
 
@@ -39,7 +39,7 @@ public class LoginService {
                                                                        OnCompleteAsyncTask onComplete, Context c) {
         List<AuthentificationChecker.AuthCheckResult> checkResult = AuthentificationChecker.check(login, password,name);
         if(checkResult.size() == 0) {
-            UserService service = RetrofitInstance.getRetrofitInstance().create(UserService.class);
+            UserService service = RetrofitInstance.Companion.getRetrofitInstance().create(UserService.class);
             Call<DatabaseResponse> call = service.createUser(login,password,name,"","");
             call.enqueue(new OnCompleteRegister(onComplete));
         }

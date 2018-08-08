@@ -1,11 +1,9 @@
 package app.vodio.com.vodio.activities
 
 import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
-import app.vodio.com.vodio.R
 
 abstract class AbstractPagerActivity : AbstractActivity() {
     var adapter : PagerAdapter? = null
@@ -28,7 +26,7 @@ abstract class AbstractPagerActivity : AbstractActivity() {
         pager?.adapter = adapter
     }
 
-    fun setPagePosition(position: Integer) {
+    fun setPagePosition(position: Int) {
         pager?.setCurrentItem(position.toInt())
     }
 

@@ -13,7 +13,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 
-public class HTTPUtils {
+public class ServerMapper {
 
     public static JSONObject getObject(String host, String path, Map<String,String> params){
         JSONObject obj = null;
@@ -46,8 +46,8 @@ public class HTTPUtils {
     }
 
     private static URL constructStringUrl(String host, String path, Map<String, String> params){
-        String url = host + path;
         String paramStr="";
+        String url = host + path;
         if(params.size() > 0){
             int n = params.size();
             int current = 1;
@@ -89,7 +89,7 @@ public class HTTPUtils {
         return null;
     }
 
-    public static JSONObject inputStreamReaderToJSONObject(InputStreamReader inputStreamReader) throws IOException {
+    private static JSONObject inputStreamReaderToJSONObject(InputStreamReader inputStreamReader) throws IOException {
         JSONObject obj = null;
         StringBuilder sBuilder = new StringBuilder();
         BufferedReader bReader = new BufferedReader(inputStreamReader);
@@ -104,8 +104,7 @@ public class HTTPUtils {
         }
         return obj;
     }
-
-    public static JSONArray inputStreamReaderToJSonArray(InputStreamReader inputStreamReader) throws IOException{
+    private static JSONArray inputStreamReaderToJSonArray(InputStreamReader inputStreamReader) throws IOException{
         JSONArray obj = null;
         StringBuilder sBuilder = new StringBuilder();
         BufferedReader bReader = new BufferedReader(inputStreamReader);

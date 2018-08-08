@@ -2,17 +2,8 @@ package app.vodio.com.vodio.database;
 
 import android.content.Context;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,7 +23,7 @@ public  class UserMapper {
         private String host;
         private User usr;
         public GetUserTask(String login, String password, OnCompleteAsyncTask onComplete, Context c){
-            super(onComplete,c);
+            super(onComplete);
             host = c.getString(R.string.host_database);
             this.login = login;this.password = password;
         }
@@ -42,7 +33,7 @@ public  class UserMapper {
             Map<String, String> map = new HashMap<>();
             map.put("login",login);
             if(password != null){map.put("password",password);}
-            JSONObject obj = HTTPUtils.getObject(host,path,map);
+            JSONObject obj = ServerMapper.getObject(host,path,map);
             if(obj != null){
                 usr = new User(obj);
                 setSuccess(usr.isProvided());
@@ -66,7 +57,7 @@ public  class UserMapper {
         private String host;
         private String path = "/user/create.php";
         public CreateUserTask(User user,OnCompleteAsyncTask onComplete, Context c){
-            super(onComplete,c);
+            super(onComplete);
             usr = user;
             host = c.getString(R.string.host_database);
         }
@@ -78,7 +69,7 @@ public  class UserMapper {
             map.put("name",usr.getName());
             map.put("email",usr.getEmail());
             map.put("surname",usr.getSurname());
-            JSONObject obj = HTTPUtils.getObject(host,path,map);
+            JSONObject obj = ServerMapper.getObject(host,path,map);
             if(obj != null) {
                 response = new DatabaseResponse(obj);
                 setSuccess(response.getResultCode() == 0);
