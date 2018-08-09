@@ -19,6 +19,7 @@ import app.vodio.com.vodio.activities.LoginActivity
 import app.vodio.com.vodio.services.LoginService
 import app.vodio.com.vodio.utils.AuthentificationChecker
 import app.vodio.com.vodio.utils.OnCompleteAsyncTask
+import kotlinx.android.synthetic.main.fragment_login.*
 
 
 /**
@@ -27,88 +28,61 @@ import app.vodio.com.vodio.utils.OnCompleteAsyncTask
  * to handle interaction events.
  */
 class LoginFragment : AbstractFragment() {
-    //clickable
-    private var signInButton: Button? = null
-    private var signUpButton: Button? = null
-    private var forgotPasswordView: TextView? = null
-
-    //fields
-    private var tInputLayoutLogin: TextInputLayout? = null
-    private var loginField: EditText? = null
-    private var tInputLayoutPassword: TextInputLayout? = null
-    private var passwordField: EditText? = null
-
-    //
-    private var progressBar: ProgressBar? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_login, container, false)
-
-        //clickable
-        signInButton = rootView.findViewById(R.id.signInPerformButton)
-        signUpButton = rootView.findViewById(R.id.signUpButton)
-        forgotPasswordView = rootView.findViewById(R.id.passwordForgotLogin)
-
-        // fields
-        tInputLayoutLogin = rootView.findViewById(R.id.loginEditTextLogin)
-        loginField = rootView.findViewById(R.id.loginFieldLogin)
-        tInputLayoutPassword = rootView.findViewById(R.id.passwordEditTextLogin)
-        passwordField = rootView.findViewById(R.id.passwordFieldLogin)
-
-        // progressbar
-        progressBar = rootView.findViewById(R.id.loginProgressBar)
         return rootView
     }
 
     override fun onResume() {
         super.onResume()
         // setup on click listeners
-        signInButton!!.setOnClickListener(this)
+        signInPerformButton.setOnClickListener(this)
         signUpButton!!.setOnClickListener(this)
-        forgotPasswordView!!.setOnClickListener(this)
+        passwordForgotLogin.setOnClickListener(this)
         // setup on text change listener
-        loginField!!.addTextChangedListener(LoginPasswordTextWatcher())
-        passwordField!!.addTextChangedListener(LoginPasswordTextWatcher())
+        loginFieldLogin.addTextChangedListener(LoginPasswordTextWatcher())
+        passwordFieldLogin.addTextChangedListener(LoginPasswordTextWatcher())
         // setup error enabled for edit text
-        tInputLayoutLogin!!.isErrorEnabled = true
-        tInputLayoutPassword!!.isErrorEnabled = true
+        loginEditTextLogin.isErrorEnabled = true
+        passwordEditTextLogin.isErrorEnabled = true
     }
 
     override fun onClick(v: View) {
-        if (v === signInButton) {
+        if (v === signInPerformButton) {
             performSignIn()
         }
-        if (v === forgotPasswordView) {
+        if (v === passwordForgotLogin) {
             Toast.makeText(context, "forgot", Toast.LENGTH_SHORT).show()
         }
         onItemSelected(v.id)
     }
 
     fun checkLoginAndUpdateView(setErrorMessage: Boolean): Boolean {
-        val login = loginField!!.text.toString()
+        val login = loginFieldLogin.text.toString()
         if (AuthentificationChecker.checkLogin(login).isEmpty()) {
-            tInputLayoutLogin!!.error = ""
+            loginEditTextLogin.error = ""
             return true
         } else {
             if (setErrorMessage) {
                 val list = AuthentificationChecker.checkLogin(login)
-                tInputLayoutLogin!!.error = list.toString()
+                loginEditTextLogin.error = list.toString()
             }
             return false
         }
     }
 
     fun checkPasswordAndUpdateView(setErrorMessage: Boolean): Boolean {
-        val password = passwordField!!.text.toString()
+        val password = passwordFieldLogin!!.text.toString()
         if (AuthentificationChecker.checkPasswordBoolean(password)) {
-            tInputLayoutPassword!!.error = ""
+            passwordEditTextLogin.error = ""
             return true
         } else {
             if (setErrorMessage) {
                 val list = AuthentificationChecker.checkPassword(password)
-                tInputLayoutPassword!!.error = list.toString()
+                passwordEditTextLogin.error = list.toString()
             }
             return false
         }
@@ -119,11 +93,11 @@ class LoginFragment : AbstractFragment() {
     }
 
     private fun performSignIn() {
-        val login = loginField!!.text.toString()
-        val password = passwordField!!.text.toString()
-        progressBar!!.visibility = View.VISIBLE
+        val login = loginFieldLogin.text.toString()
+        val password = passwordFieldLogin.text.toString()
+        loginProgressBar.visibility = View.VISIBLE
         if (checkFieldsAndUpdateView(true)) {
-            LoginService.getInstance().signIn(login, password, OnCompleteLogin(), context)
+            LoginService.getInstance()?.signIn(login, password, OnCompleteLogin())
         } else {
             authenticationFail("wrong fields")
         }
@@ -136,8 +110,8 @@ class LoginFragment : AbstractFragment() {
 
     private fun authenticationFail(msg: String) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
-        progressBar!!.visibility = View.GONE
-        passwordField!!.setText("")
+        loginProgressBar.visibility = View.GONE
+        passwordFieldLogin.setText("")
     }
 
     internal inner class LoginPasswordTextWatcher : TextWatcher {

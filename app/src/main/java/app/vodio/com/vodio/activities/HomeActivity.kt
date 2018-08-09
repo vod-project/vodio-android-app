@@ -21,16 +21,25 @@ class HomeActivity : AbstractPagerActivity(), ViewPager.OnPageChangeListener {
         showFragment(bottomNavFragment, R.id.layoutBottomBar)
     }
 
+    override fun onResume() {
+        super.onResume()
+        if(LoginService.Companion.getInstance()?.loggedIn == null){
+            performSignOut()
+        }else{
+            // stay in this activity
+        }
+    }
+
     override fun onItemSelected(itemId: Int) {
         when(itemId){
             R.id.recordVodFHome -> Toast.makeText(applicationContext, "recording", Toast.LENGTH_LONG).show()
+            R.id.signOut -> {performSignOut()}
         }
     }
 
     fun performSignOut() {
-        LoginService.getInstance().loggedIn = null
-        var intent: Intent = Intent(applicationContext, LoginActivity::class.java)
-        startActivity(intent)
+        LoginService.getInstance()?.loggedIn = null
+        startActivity(Intent(applicationContext, LoginActivity::class.java))
         finish()
     }
 

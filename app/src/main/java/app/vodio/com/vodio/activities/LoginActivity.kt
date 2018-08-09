@@ -2,7 +2,6 @@ package app.vodio.com.vodio.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import app.vodio.com.vodio.R
 import app.vodio.com.vodio.beans.User
 import app.vodio.com.vodio.fragments.LoginFragment
@@ -14,7 +13,7 @@ class LoginActivity : AbstractActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        var usr: User? = LoginService.getInstance().loggedIn
+        var usr: User? = LoginService.getInstance()?.loggedIn
         if (usr != null) {
             val intent: Intent = Intent(applicationContext, HomeActivity::class.java)
             startActivity(intent)

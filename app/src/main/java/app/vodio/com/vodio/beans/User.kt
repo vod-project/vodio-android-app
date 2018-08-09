@@ -9,11 +9,7 @@ data class User(var name : String?, var surname : String?, var login : String?, 
     }
 
     fun isProvided() : Boolean {
-        var isProvided = false;
-        if(! (name == null && surname == null && login == null && email == null)){
-            isProvided = true;
-        }
-        return isProvided;
+        return ! (name == null && surname == null && login == null && email == null)
     }
     fun provideFromJsonObject(obj: JSONObject){
         name = checkStringJsonData(obj.get("name").toString());

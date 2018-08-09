@@ -40,7 +40,7 @@ public  class UserMapper {
             }else{
                 setSuccess(false);
             }
-            if(usr.isProvided()){LoginService.getInstance().setLoggedIn(usr);}
+            if(usr.isProvided()){LoginService.Companion.getInstance().setLoggedIn(usr);}
             return null;
 
         }
