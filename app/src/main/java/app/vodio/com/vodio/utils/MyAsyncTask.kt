@@ -13,12 +13,10 @@ abstract class MyAsyncTask<Any>(private val onComplete : OnCompleteAsyncTask) : 
 
     override fun onPostExecute(result: Object?) {
         super.onPostExecute(result)
-        if(onComplete != null) {
-            val obj: Object = getObject() as Object
-            when (isSuccess) {
-                true -> onComplete?.onSuccess(obj)
-                false -> onComplete?.onFail()
-            }
+        val obj: Object = getObject() as Object
+        when (isSuccess) {
+            true -> onComplete?.onSuccess(obj)
+            false -> onComplete?.onFail()
         }
     }
 

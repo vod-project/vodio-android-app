@@ -1,8 +1,13 @@
 package app.vodio.com.vodio.activities
 
 import android.content.Intent
+import android.icu.util.VersionInfo
+import android.media.MediaRecorder
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.Toast
+import androidx.core.widget.toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
@@ -11,6 +16,10 @@ import androidx.viewpager.widget.ViewPager
 import app.vodio.com.vodio.R
 import app.vodio.com.vodio.fragments.*
 import app.vodio.com.vodio.services.LoginService
+import app.vodio.com.vodio.utils.recording.MediaRecorderFactory
+import kotlinx.android.synthetic.main.fragment_bottom_nav.*
+import java.io.File
+import java.util.*
 
 class HomeActivity : AbstractPagerActivity(), ViewPager.OnPageChangeListener {
     val bottomNavFragment: BottomNavFragment = BottomNavFragment()
@@ -32,11 +41,19 @@ class HomeActivity : AbstractPagerActivity(), ViewPager.OnPageChangeListener {
 
     override fun onItemSelected(itemId: Int) {
         when(itemId){
-            R.id.recordVodFHome -> Toast.makeText(applicationContext, "recording", Toast.LENGTH_LONG).show()
+            R.id.recordVodFHome -> performRecording()
             R.id.signOut -> {performSignOut()}
         }
     }
 
+    fun performRecording(){
+        Toast.makeText(applicationContext, "recording", Toast.LENGTH_LONG).show()
+        val mediaRecorder = MediaRecorderFactory.getInstance()?.create()
+
+        // show audio encoder
+
+
+    }
     fun performSignOut() {
         LoginService.getInstance()?.loggedIn = null
         startActivity(Intent(applicationContext, LoginActivity::class.java))

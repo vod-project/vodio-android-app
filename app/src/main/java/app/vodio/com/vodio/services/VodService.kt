@@ -19,13 +19,8 @@ class VodService{
     }
     class OnVodsProvided (private var onComplete: OnCompleteAsyncTask) : Callback<Array<Vod>>{
         override fun onResponse(call: Call<Array<Vod>>?, response: Response<Array<Vod>>?) {
-            if(response?.body() != null) {
-                onComplete.onSuccess(response?.body() as Array<Vod>)
-            }else{
-                onComplete.onFail()
-            }
+            if(response?.body() != null) { onComplete.onSuccess(response?.body() as Array<Vod>)}else{onComplete.onFail()}
         }
-
         override fun onFailure(call: Call<Array<Vod>>?, t: Throwable?) {
             onComplete.onFail()
         }
