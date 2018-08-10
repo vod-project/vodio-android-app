@@ -34,14 +34,13 @@ class BottomRecordFragment : BottomSheetDialogFragment( ) {
         tagButton.setOnClickListener{view ->  Toast.makeText(context,"not yet implemented", Toast.LENGTH_SHORT).show()}
         modVodButton.setOnClickListener{view ->  Toast.makeText(context,"not yet implemented", Toast.LENGTH_SHORT).show()}
         sendVodButton.setOnClickListener{view ->  Toast.makeText(context,"not yet implemented", Toast.LENGTH_SHORT).show()}
-
-        //mediaExecutor.execute(StartStream())
+        playButton.setOnPause(StopStream())
+        playButton.setOnStart(StartStream())
     }
-
 
     override fun onDismiss(dialog: DialogInterface?) {
         super.onDismiss(dialog)
-        //mediaExecutor.execute(StopStream())
+        mediaPlayer?.stop()
     }
 
     fun updateRecordUIMode(){
@@ -51,6 +50,7 @@ class BottomRecordFragment : BottomSheetDialogFragment( ) {
         recordVodBSF.visibility = View.VISIBLE
         timeRecordTv.visibility = View.VISIBLE
         cleanUI()
+        clearMediaPlayer()
 
         startRecord()
     }
@@ -76,6 +76,12 @@ class BottomRecordFragment : BottomSheetDialogFragment( ) {
 
     fun cleanUI(){
         timeRecordTv.setText("0:00")
+        playButton.reinit()
+    }
+
+    fun clearMediaPlayer(){
+        mediaPlayer?.stop()
+        mediaPlayer = null
     }
 
     inner class TTask : TimerTask() {
@@ -108,7 +114,7 @@ class BottomRecordFragment : BottomSheetDialogFragment( ) {
 
     inner class StopStream : Runnable{
         override fun run() {
-            mediaPlayer?.stop()
+            mediaPlayer?.pause()
         }
     }
 
