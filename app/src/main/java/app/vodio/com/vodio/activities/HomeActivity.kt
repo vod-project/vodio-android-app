@@ -1,5 +1,6 @@
 package app.vodio.com.vodio.activities
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.icu.util.VersionInfo
 import android.media.MediaRecorder
@@ -47,9 +48,9 @@ class HomeActivity : AbstractPagerActivity(), ViewPager.OnPageChangeListener {
     }
 
     fun performRecording(){
-        Toast.makeText(applicationContext, "recording", Toast.LENGTH_LONG).show()
-        val mediaRecorder = MediaRecorderFactory.getInstance()?.create()
-
+        //val mediaRecorder = MediaRecorderFactory.getInstance()?.create()
+        val bottomSheetRecord = BottomRecordFragment()
+        bottomSheetRecord.show(supportFragmentManager,"recordBottomSheet")
         // show audio encoder
 
 

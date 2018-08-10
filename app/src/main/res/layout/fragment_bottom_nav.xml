@@ -7,6 +7,7 @@
     tools:context=".fragments.BottomNavFragment">
 
     <ImageButton
+        android:elevation="100dp"
         android:id="@+id/recordVodFHome"
         android:layout_width="70dp"
         android:layout_height="70dp"
