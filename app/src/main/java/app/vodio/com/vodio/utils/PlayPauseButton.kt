@@ -35,5 +35,6 @@ class PlayPauseButton: ImageButton , View.OnClickListener{
 
     fun reinit(){
         setImageResource(android.R.drawable.ic_media_play)
+        onPlay = false
     }
 }

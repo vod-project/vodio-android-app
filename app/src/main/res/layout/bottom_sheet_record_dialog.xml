@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@android:color/transparent"
-    android:background="@android:color/transparent"
-    android:padding="25dp">
+    android:background="@color/colorBottomNavBar"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:paddingLeft="25dp"
+    android:paddingRight="25dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/headerBottomSheet"
         app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintRight_toLeftOf="parent">
+        app:layout_constraintRight_toLeftOf="parent"
+        >
         <Button
             android:backgroundTint="@android:color/transparent"
+            android:textColor="@android:color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="#"
@@ -23,86 +27,19 @@
             android:id="@+id/tagButton"/>
 
         <EditText
+            android:textColorHint="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Titre"
             app:layout_constraintLeft_toRightOf="@id/tagButton"/>
 
     </LinearLayout>
-    <LinearLayout
-        app:layout_constraintTop_toBottomOf="@id/headerBottomSheet"
-        android:id="@+id/mediaControlLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical">
-
-        <app.vodio.com.vodio.utils.PlayPauseButton
-            android:id="@+id/playButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_media_play"
-            android:backgroundTint="@android:color/transparent" />
-        <MediaController
-            android:id="@+id/mediaController"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@android:color/holo_blue_light">
-
-        </MediaController>
-
-    </LinearLayout>
-
-    <ImageButton
-        android:layout_margin="15dp"
-        android:id="@+id/recordVodBSF"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_mini_logo_app_icon"
-        android:background="@android:color/transparent"
-        app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintRight_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mediaControlLayout"
-        app:layout_constraintBottom_toTopOf="@id/recordManagerLayout"
-        />
-    <TextView
-        app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintRight_toLeftOf="parent"
-        android:id="@+id/timeRecordTv"
-        app:layout_constraintTop_toBottomOf="@id/recordVodBSF"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0:00"/>
 
     <LinearLayout
-        android:visibility="visible"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintRight_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/timeRecordTv"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:id="@+id/recordManagerLayout">
-            <Button
-                android:id="@+id/modVodButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@android:color/transparent"
-                android:text="Modifier"/>
-            <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/transparent"
-                android:id="@+id/retryVod"
-            android:text="Recommencer"/>
+        android:layout_height="match_parent"
+        android:id="@+id/test"></LinearLayout>
 
-            <Button
-                android:id="@+id/sendVodButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-                android:backgroundTint="@android:color/transparent"
-                android:text="Envoyer"/>
-    </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

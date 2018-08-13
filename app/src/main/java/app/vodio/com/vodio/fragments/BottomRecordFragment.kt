@@ -1,26 +1,25 @@
 package app.vodio.com.vodio.fragments
 
-import android.app.Activity
 import android.content.DialogInterface
-import android.media.AudioManager
-import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import app.vodio.com.vodio.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.bottom_sheet_record_dialog.*
-import java.util.*
-import java.util.concurrent.LinkedBlockingQueue
-import java.util.concurrent.ThreadPoolExecutor
-import java.util.concurrent.TimeUnit
+import java.io.FileDescriptor
 
 class BottomRecordFragment : BottomSheetDialogFragment( ) {
-    var mediaPlayer : MediaPlayer? = null
-    var timerTask : TTask? = null
-    val mediaExecutor = ThreadPoolExecutor(5,10,60,TimeUnit.SECONDS, LinkedBlockingQueue<Runnable>())
+
+    var onRecordFragment = OnRecordFragment()
+    var onManageFragment = ManagerRecordFragment()
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.bottom_sheet_record_dialog, container, false)
         return view
@@ -28,100 +27,47 @@ class BottomRecordFragment : BottomSheetDialogFragment( ) {
 
     override fun onResume() {
         super.onResume()
+        onRecordFragment.parentFragment = this
+        onManageFragment.parentFragment = this
         updateRecordUIMode()
-        recordVodBSF.setOnClickListener { view -> updateManageUIMode() }
-        retryVod.setOnClickListener { view -> updateRecordUIMode()}
+
         tagButton.setOnClickListener{view ->  Toast.makeText(context,"not yet implemented", Toast.LENGTH_SHORT).show()}
-        modVodButton.setOnClickListener{view ->  Toast.makeText(context,"not yet implemented", Toast.LENGTH_SHORT).show()}
-        sendVodButton.setOnClickListener{view ->  Toast.makeText(context,"not yet implemented", Toast.LENGTH_SHORT).show()}
-        playButton.setOnPause(StopStream())
-        playButton.setOnStart(StartStream())
     }
 
     override fun onDismiss(dialog: DialogInterface?) {
         super.onDismiss(dialog)
-        mediaPlayer?.stop()
+        onRecordFragment.clear()
+        onManageFragment.clear()
     }
 
     fun updateRecordUIMode(){
-        recordManagerLayout.visibility = View.GONE
-        mediaControlLayout.visibility = View.GONE
-
-        recordVodBSF.visibility = View.VISIBLE
-        timeRecordTv.visibility = View.VISIBLE
-        cleanUI()
-        clearMediaPlayer()
-
-        startRecord()
+        showFragment(onRecordFragment, R.id.test)
     }
 
-    fun updateManageUIMode(){
-        recordManagerLayout.visibility = View.VISIBLE
-        mediaControlLayout.visibility = View.VISIBLE
-
-        recordVodBSF.visibility = View.GONE
-        timeRecordTv.visibility = View.GONE
+    fun updateManageUIMode() {
+        showFragment(onManageFragment, R.id.test)
     }
 
-    fun startRecord(){
-        if(timerTask == null) timerTask = TTask()
-        if(timerTask!!.started) timerTask?.cancel()
-        timerTask = TTask()
-        Timer().scheduleAtFixedRate(timerTask, 1000, 1000)
+    fun setDataSource(url : String){
+        onManageFragment.setDataSource(url)
+    }
+    fun setDataSource(file : FileDescriptor){
+        onManageFragment.setDataSource(file)
     }
 
-    fun setTimeRecord(t : String){
-        timeRecordTv.setText(t)
-    }
+    fun showFragment(fragment: Fragment, idContainerView: Int) {
+        val fm: FragmentManager = childFragmentManager
+        val ft: FragmentTransaction = fm.beginTransaction()
 
-    fun cleanUI(){
-        timeRecordTv.setText("0:00")
-        playButton.reinit()
-    }
+        // We can also animate the changing of fragment.
+        ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+        // Replace current fragment by the new one.
+        ft.replace(idContainerView, fragment)
+        // Null on the back stack to return on the previous fragment when user
+        // press on back button.
+        ft.addToBackStack(null)
 
-    fun clearMediaPlayer(){
-        mediaPlayer?.stop()
-        mediaPlayer = null
-    }
-
-    inner class TTask : TimerTask() {
-        var count = 0
-        var started = false
-        override fun run() {
-            if(!started) started = !started
-            count++
-            if(context != null) {
-                val c = context as Activity
-                c.runOnUiThread(Runnable { setTimeRecord(secondsToStrMin(count)) })
-            }
-        }
-    }
-
-    inner class StartStream : Runnable{
-        override fun run() {
-            if(mediaPlayer == null) {
-                val url = "https://www.sample-videos.com/audio/mp3/crowd-cheering.mp3"
-                mediaPlayer = MediaPlayer().apply {
-                    setAudioStreamType(AudioManager.STREAM_MUSIC)
-                    setDataSource(url)
-                    prepare()
-                }
-            }
-            mediaPlayer?.start()
-        }
-
-    }
-
-    inner class StopStream : Runnable{
-        override fun run() {
-            mediaPlayer?.pause()
-        }
-    }
-
-    fun secondsToStrMin(sec : Int)  : String{
-        var m =sec/60
-        var s =sec%60
-        if(s < 10){return "${m}:0${s}"}
-        return "${m}:${s}"
+        // Commit changes.
+        ft.commit()
     }
 }

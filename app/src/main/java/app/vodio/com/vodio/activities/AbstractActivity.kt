@@ -55,8 +55,6 @@ abstract class AbstractActivity : AppCompatActivity(), FragmentCallBack {
         synchronized(fragmentsBack) {
             fragmentsBack.push(fragment)
         }
-
-
     }
 
     fun setBackgroundImage() {

@@ -53,7 +53,7 @@
             android:backgroundTint="@android:color/transparent"
             android:src="@android:drawable/ic_media_play"/>
         <MediaController
-            android:id="@+id/mediaController"
+            android:id="@+id/mediaSeekbar"
             android:layout_toEndOf="@id/playButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
