@@ -7,6 +7,7 @@ import android.media.MediaRecorder
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,13 +46,14 @@ class OnRecordFragment(): AbstractFragment(){
             run {
                 stopRecord()
                 val file = MediaRecorderFactory.getInstance()?.getOutputFile(mediaRecorder)
-                parentFragment?.setDataSource(file!!.path)
+                parentFragment?.setDataSource(file)
                 parentFragment?.updateManageUIMode()
             }
         }
     }
 
     fun startRecord(){
+        Log.w(this.javaClass.simpleName,"try to start record")
         if(timerTask == null) timerTask = TTask()
         if(timerTask!!.started) timerTask?.cancel()
         timerTask = TTask()
@@ -64,25 +66,34 @@ class OnRecordFragment(): AbstractFragment(){
         mediaRecorder = MediaRecorderFactory.getInstance()?.create()
         mediaRecorder?.start()
         timer?.scheduleAtFixedRate(timerTask, 1000, 1000)
+        Log.w(this.javaClass.simpleName,"record started")
     }
 
     fun cancelRecordAfterPermissionNotGranted(){
-        timerTask = null
-        timer = null
-        Toast.makeText(context,"cancelling...",Toast.LENGTH_SHORT).show()
+        Log.w(this.javaClass.simpleName,"permission refused")
+        stopTimer()
     }
 
     fun stopRecord(){
+        stopTimer()
+        mediaRecorder?.stop()
+        Log.w(this.javaClass.simpleName,"record stopped")
+    }
+
+    fun stopTimer(){
         timerTask?.cancel()
         timer?.cancel()
-        mediaRecorder?.stop()
+        Log.w(this.javaClass.simpleName,"timer stopped")
     }
 
     fun clear(){
-        stopRecord()
+        stopTimer()
+        mediaRecorder?.reset()
+        Log.w(this.javaClass.simpleName,"cleared")
     }
 
     fun requestAudioPermissions(){
+        Log.w(this.javaClass.simpleName,"request permission")
         // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(activity!!,
                         Manifest.permission.RECORD_AUDIO)
@@ -108,6 +119,7 @@ class OnRecordFragment(): AbstractFragment(){
         } else {
             // Permission has already been granted
             continueRecordAfterPermissionGranted()
+            Log.w(this.javaClass.simpleName,"permission granted")
         }
     }
 
@@ -117,6 +129,7 @@ class OnRecordFragment(): AbstractFragment(){
             MY_PERMISSIONS_RECORD_AUDIO -> {
                 // If request is cancelled, the result arrays are empty.
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    Log.w(this.javaClass.simpleName,"permission granted")
                     continueRecordAfterPermissionGranted()
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.

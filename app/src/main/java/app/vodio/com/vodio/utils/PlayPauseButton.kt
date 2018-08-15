@@ -2,6 +2,7 @@ package app.vodio.com.vodio.utils
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
@@ -24,9 +25,11 @@ class PlayPauseButton: ImageButton , View.OnClickListener{
 
     override fun onClick(p0: View?) {
         if(onPlay){
+            if(onStop == null) Log.w("tag","onStop is not setted")
             onStop?.run()
             setImageResource(android.R.drawable.ic_media_play)
         }else{
+            if(onStart == null) Log.w("tag","onStart is not setted")
             onStart?.run()
             setImageResource(android.R.drawable.ic_media_pause)
         }
@@ -35,6 +38,8 @@ class PlayPauseButton: ImageButton , View.OnClickListener{
 
     fun reinit(){
         setImageResource(android.R.drawable.ic_media_play)
+        setOnClickListener(this)
         onPlay = false
+        Log.w(this.javaClass.simpleName,"re init button")
     }
 }

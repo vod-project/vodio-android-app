@@ -2,6 +2,7 @@ package app.vodio.com.vodio.fragments
 
 import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import androidx.fragment.app.FragmentTransaction
 import app.vodio.com.vodio.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.bottom_sheet_record_dialog.*
+import java.io.File
 import java.io.FileDescriptor
 
 class BottomRecordFragment : BottomSheetDialogFragment( ) {
@@ -38,20 +40,21 @@ class BottomRecordFragment : BottomSheetDialogFragment( ) {
         super.onDismiss(dialog)
         onRecordFragment.clear()
         onManageFragment.clear()
+        Log.w(this.javaClass.simpleName,"dismiss")
     }
 
     fun updateRecordUIMode(){
         showFragment(onRecordFragment, R.id.test)
+        Log.w(this.javaClass.simpleName,"show on record fragment")
     }
 
     fun updateManageUIMode() {
+        onManageFragment.clear()
         showFragment(onManageFragment, R.id.test)
+        Log.w(this.javaClass.simpleName,"show on manage fragment")
     }
 
-    fun setDataSource(url : String){
-        onManageFragment.setDataSource(url)
-    }
-    fun setDataSource(file : FileDescriptor){
+    fun setDataSource(file : File?){
         onManageFragment.setDataSource(file)
     }
 

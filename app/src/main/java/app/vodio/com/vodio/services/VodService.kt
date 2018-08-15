@@ -5,15 +5,17 @@ import app.vodio.com.vodio.database.retrofit.RetrofitInstance
 import app.vodio.com.vodio.database.retrofit.services.UserService
 import app.vodio.com.vodio.database.retrofit.services.VodService
 import app.vodio.com.vodio.utils.OnCompleteAsyncTask
+import io.reactivex.Observable
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.function.Consumer
 
 class VodService{
     fun getVods(onComplete : OnCompleteAsyncTask){
         val service : VodService? = RetrofitInstance.getRetrofitInstance()?.create(VodService::class.java)
 
-        val call : Call<Array<Vod>>? = service?.getVods()
+        val call : Call<Array<Vod>>? = service?.getVods_old()
 
         call?.enqueue(OnVodsProvided(onComplete));
     }

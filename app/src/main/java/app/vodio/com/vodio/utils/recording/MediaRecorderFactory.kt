@@ -23,19 +23,21 @@ class MediaRecorderFactory{
     }
     fun create() : MediaRecorder?{
         var mediaRecorder : MediaRecorder? = null
-        val outputFile = File.createTempFile("${Random().nextInt()}","record")
+        val outputFile = File.createTempFile("${kotlin.math.abs(Random().nextInt())}","record")
+        mediaRecorder = MediaRecorder()
+        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC)
+        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT)
+
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            mediaRecorder = MediaRecorder()
-            mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC)
-            mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_2_TS)
             mediaRecorder.setOutputFile(outputFile)
-            mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
-            fileMap.put(mediaRecorder, outputFile)
-            // show media encoder
-        }else{
-            throw Exception("not yet implemented for this version of Android")
         }
+        else{
+            mediaRecorder.setOutputFile(outputFile.path)
+        }
+
+        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT)
         mediaRecorder?.prepare()
+        fileMap.put(mediaRecorder, outputFile)
         return mediaRecorder
     }
 }
