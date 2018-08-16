@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
+import android.widget.Toast
 
 import java.util.ArrayList
 
@@ -39,6 +40,7 @@ class ActuFragment : AbstractFragment() {
             }
             override fun onFail() {
                 // stop load view
+                Toast.makeText(context, "failed", Toast.LENGTH_SHORT).show()
             }
         })
     }

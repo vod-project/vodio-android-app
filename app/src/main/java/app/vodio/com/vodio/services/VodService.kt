@@ -6,6 +6,8 @@ import app.vodio.com.vodio.database.retrofit.services.UserService
 import app.vodio.com.vodio.database.retrofit.services.VodService
 import app.vodio.com.vodio.utils.OnCompleteAsyncTask
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,9 +17,15 @@ class VodService{
     fun getVods(onComplete : OnCompleteAsyncTask){
         val service : VodService? = RetrofitInstance.getRetrofitInstance()?.create(VodService::class.java)
 
-        val call : Call<Array<Vod>>? = service?.getVods_old()
+        val obs = service?.getVods()
 
-        call?.enqueue(OnVodsProvided(onComplete));
+        obs?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe(Consume(onComplete), OnErr(onComplete))
+
+        //val call : Call<Array<Vod>>? = service?.getVods_old()
+
+        //call?.enqueue(OnVodsProvided(onComplete));
     }
     class OnVodsProvided (private var onComplete: OnCompleteAsyncTask) : Callback<Array<Vod>>{
         override fun onResponse(call: Call<Array<Vod>>?, response: Response<Array<Vod>>?) {
@@ -27,5 +35,21 @@ class VodService{
             onComplete.onFail()
         }
 
+    }
+
+    class Consume(private var onComplete: OnCompleteAsyncTask) : io.reactivex.functions.Consumer<Array<Vod>>{
+        override fun accept(t: Array<Vod>?) {
+            if(t != null)
+                onComplete.onSuccess(t)
+            else{
+                onComplete.onFail()
+            }
+        }
+    }
+
+    class OnErr(private var onComplete: OnCompleteAsyncTask) : io.reactivex.functions.Consumer<Throwable>{
+        override fun accept(t: Throwable?) {
+            onComplete.onFail()
+        }
     }
 }

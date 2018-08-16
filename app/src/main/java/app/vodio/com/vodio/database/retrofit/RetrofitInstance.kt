@@ -3,6 +3,7 @@ package app.vodio.com.vodio.database.retrofit;
 import io.reactivex.plugins.RxJavaPlugins
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory;
 class RetrofitInstance{
     companion object {
@@ -12,7 +13,7 @@ class RetrofitInstance{
             if(retrofit == null){
                 retrofit = Retrofit.Builder().baseUrl(BASE_URL)
                         .addConverterFactory(GsonConverterFactory.create())
-                        .addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build()
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create()).build()
             }
             return retrofit
         }
