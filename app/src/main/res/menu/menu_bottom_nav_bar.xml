@@ -27,9 +27,9 @@
         </item>
 
         <item
-            android:id="@+id/settings_navbar"
-            android:icon="@drawable/ic_settings_icon_white"
-            android:title="@string/settings_name">
+            android:id="@+id/search_navbar"
+            android:icon="@android:drawable/ic_menu_search"
+            android:title="@string/search_name">
         </item>
     </group>
 </menu>

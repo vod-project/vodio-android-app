@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="d9784283cc66aabfb5f1ebe0a84c1da660a93a95" />
+
         <activity
             android:name=".activities.LoginActivity">
 

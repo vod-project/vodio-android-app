@@ -44,33 +44,27 @@
         android:layout_centerVertical="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <ImageButton
-
+        <app.vodio.com.vodio.utils.PlayPauseButton
             android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
             android:id="@+id/playButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@android:color/transparent"
             android:src="@android:drawable/ic_media_play"/>
-        <MediaController
+        <SeekBar
             android:id="@+id/mediaSeekbar"
             android:layout_toEndOf="@id/playButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            ></MediaController>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/dureeTv"
-            android:layout_below="@id/playButton"
-            android:text="Durée : "/>
-        <TextView
+            ></SeekBar>
+        <app.vodio.com.vodio.utils.TimeTextView
             android:id="@+id/timeTv"
             android:layout_below="@id/playButton"
-            android:layout_toRightOf="@id/dureeTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:text="1:30"/>
 
     </RelativeLayout>

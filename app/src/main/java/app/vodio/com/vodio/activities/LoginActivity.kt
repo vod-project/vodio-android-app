@@ -12,7 +12,6 @@ class LoginActivity : AbstractActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         var usr: User? = LoginService.getInstance()?.loggedIn
         if (usr != null) {
             val intent: Intent = Intent(applicationContext, HomeActivity::class.java)

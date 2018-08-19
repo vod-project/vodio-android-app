@@ -30,7 +30,7 @@ class ActuFragment : AbstractFragment() {
     override fun onResume() {
         super.onResume()
         val list = ArrayList<Vod>()
-        val adapter = VodAdapter(context, android.R.layout.simple_expandable_list_item_1, list)
+        val adapter = VodAdapter(context!!, android.R.layout.simple_expandable_list_item_1, list)
         listOfPost.adapter = adapter
         VodService().getVods(object : OnCompleteAsyncTask {
             override fun onSuccess(obj: Any) {

@@ -4,9 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
 import android.media.MediaRecorder
-import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,13 +12,9 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import app.vodio.com.vodio.R
-import app.vodio.com.vodio.utils.MediaPlayerWithSeekBar
 import app.vodio.com.vodio.utils.recording.MediaRecorderFactory
 import kotlinx.android.synthetic.main.record_vod_layout.*
-import java.security.Permission
 import java.util.*
-import android.widget.Toast
-
 
 
 class OnRecordFragment(): AbstractFragment(){

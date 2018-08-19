@@ -8,6 +8,7 @@ import android.os.Handler
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.ImageButton
+import android.widget.MediaController
 import android.widget.SeekBar
 import kotlinx.android.synthetic.main.bottom_sheet_record_dialog.*
 import androidx.core.os.HandlerCompat.postDelayed
@@ -20,7 +21,7 @@ import java.io.FileDescriptor
 import kotlin.system.exitProcess
 
 
-class MediaPlayerWithSeekBar{
+class MediaPlayerSeekbarService {
     private val mediaExecutor = ThreadPoolExecutor(5,10,60, TimeUnit.SECONDS, LinkedBlockingQueue<Runnable>())
     private var context : Context? = null
 

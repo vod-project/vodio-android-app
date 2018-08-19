@@ -9,6 +9,10 @@ import androidx.fragment.app.FragmentTransaction
 import app.vodio.com.vodio.R
 import app.vodio.com.vodio.fragments.utils.FragmentCallBack
 import java.util.*
+import com.crashlytics.android.Crashlytics
+import io.fabric.sdk.android.Fabric
+
+
 
 abstract class AbstractActivity : AppCompatActivity(), FragmentCallBack {
     val fragmentsBack: Stack<Fragment> = Stack()
@@ -19,6 +23,7 @@ abstract class AbstractActivity : AppCompatActivity(), FragmentCallBack {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Fabric.with(this, Crashlytics())
         setContentView(getLayoutContentView())
     }
 

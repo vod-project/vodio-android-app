@@ -7,7 +7,7 @@ import androidx.viewpager.widget.ViewPager
 
 abstract class AbstractPagerActivity : AbstractActivity() {
     var adapter : PagerAdapter? = null
-    var fragments : List<Fragment>? = null
+    var fragments : List<Fragment> = ArrayList()
     var pager : ViewPager? = null
     abstract fun getViewPager() : Int
 

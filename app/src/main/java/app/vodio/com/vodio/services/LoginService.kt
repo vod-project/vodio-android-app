@@ -7,6 +7,8 @@ import app.vodio.com.vodio.database.retrofit.services.UserService
 import app.vodio.com.vodio.services.utils.OnCompleteLogin
 import app.vodio.com.vodio.services.utils.OnCompleteRegister
 import app.vodio.com.vodio.utils.OnCompleteAsyncTask
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
 
 class LoginService{
@@ -21,15 +23,21 @@ class LoginService{
     var loggedIn : User? = null
 
     fun signIn(login : String, password : String, onComplete : OnCompleteAsyncTask){
-        val service : UserService? = RetrofitInstance.getRetrofitInstance()?.create(UserService::class.java)
-        val call : Call<User>? = service?.getUser(login,password)
-        call?.enqueue(OnCompleteLogin(onComplete))
+        RetrofitInstance.getRetrofitInstance()
+                ?.create(UserService::class.java)
+                ?.getUser(login, password)
+                ?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe(OnCompleteLogin(onComplete))
     }
 
     fun signUp(login : String, password : String, name : String, onComplete: OnCompleteAsyncTask){
         val usr : User = User(name,"",login,"",password)
-        val service : UserService? = RetrofitInstance.getRetrofitInstance()?.create(UserService::class.java)
-        val call : Call<DatabaseResponse>? = service?.createUser(login,password,"","","")
-        call?.enqueue(OnCompleteRegister(onComplete, usr))
+        RetrofitInstance.getRetrofitInstance()
+                ?.create(UserService::class.java)
+                ?.createUser(login,password,"","","")
+                ?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe(OnCompleteRegister(onComplete,usr))
     }
 }

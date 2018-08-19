@@ -23,11 +23,11 @@ class MediaRecorderFactory{
     }
     fun create() : MediaRecorder?{
         var mediaRecorder : MediaRecorder? = null
-        val outputFile = File.createTempFile("${kotlin.math.abs(Random().nextInt())}","record")
+        val outputFile = File.createTempFile("${kotlin.math.abs(Random().nextInt())}","record.aac")
         mediaRecorder = MediaRecorder()
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC)
-        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT)
-
+        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS)
+        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             mediaRecorder.setOutputFile(outputFile)
         }
@@ -35,7 +35,6 @@ class MediaRecorderFactory{
             mediaRecorder.setOutputFile(outputFile.path)
         }
 
-        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT)
         mediaRecorder?.prepare()
         fileMap.put(mediaRecorder, outputFile)
         return mediaRecorder

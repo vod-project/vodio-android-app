@@ -7,6 +7,7 @@ import android.media.MediaRecorder
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.Menu
 import android.widget.Toast
 import androidx.core.widget.toast
 import androidx.fragment.app.Fragment
@@ -66,7 +67,7 @@ class HomeActivity : AbstractPagerActivity(), ViewPager.OnPageChangeListener {
     override fun getMainLayout(): Int {return R.id.mainHomeLayout}
     override fun getViewPager(): Int {return R.id.pager}
     override fun getPagerAdapter(): PagerAdapter {return ScreenSlidePagerAdapter(supportFragmentManager,getFragmentsList())}
-    override fun getFragmentsList(): List<Fragment> {return listOf(ChambreFragment(), SalonFragment(), ProfileFragment(), ActuFragment(), SettingsFragment())}
+    override fun getFragmentsList(): List<Fragment> {return bottomNavFragment.fragments}
     override fun getOnPageChangeListener(): ViewPager.OnPageChangeListener {return this}
     override fun getLayoutContentView(): Int {return R.layout.activity_home}
     // On page change listener
