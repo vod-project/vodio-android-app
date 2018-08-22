@@ -16,7 +16,7 @@ abstract class MyAsyncTask<Any>(private val onComplete : OnCompleteAsyncTask) : 
         val obj: Object = getObject() as Object
         when (isSuccess) {
             true -> onComplete?.onSuccess(obj)
-            false -> onComplete?.onFail()
+            false -> onComplete?.onFail(Throwable())
         }
     }
 

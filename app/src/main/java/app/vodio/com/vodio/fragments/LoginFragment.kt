@@ -128,7 +128,7 @@ class LoginFragment : AbstractFragment() {
             authenticationSuccess()
         }
 
-        override fun onFail() {
+        override fun onFail(t : Throwable) {
             authenticationFail("sign in failed")
         }
     }

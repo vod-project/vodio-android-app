@@ -24,12 +24,17 @@ class VodService(){
     companion object {
         private var c : Context? = null
         private var INSTANCE : app.vodio.com.vodio.services.VodService? = null
-        public fun getInstance(ctx : Context) : app.vodio.com.vodio.services.VodService?{
+        fun getInstance(ctx : Context) : app.vodio.com.vodio.services.VodService?{
             if(INSTANCE == null) {
                 INSTANCE = VodService()
                 c = ctx
             }
             return INSTANCE
+        }
+        fun getVodFilePath(audioName : String) : String{
+            val base = RetrofitInstance.getRetrofitInstance()?.baseUrl()
+            val fileName = audioName
+            return "${base}vod/get.php?mode=file&file_name=${fileName}"
         }
     }
     fun getVods(onComplete : OnCompleteAsyncTask){
@@ -52,16 +57,16 @@ class VodService(){
         //val v = c!!.getContentResolver().getType(uri)
         val v = getMimeType(file.path)
         val requestFile = RequestBody.create(
-                MediaType.parse(v ),
+                MediaType.parse(v),
                 file
         )
 
-        val body = MultipartBody.Part.createFormData("audio", file.name, requestFile)
-        val description = RequestBody.create(okhttp3.MultipartBody.FORM, "desc")
+        val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
+        //val description = RequestBody.create(okhttp3.MultipartBody.FORM, "desc")
 
         RetrofitInstance.getRetrofitInstance()
                 ?.create(VodService::class.java)
-                ?.createVod(timeInSecond, title, authorLogin, description, requestFile)
+                ?.createVod(timeInSecond, title, authorLogin, body)
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe(OnVodCreated(onComplete))
@@ -81,21 +86,21 @@ class VodService(){
             if(t != null)
                 onComplete.onSuccess(t)
             else{
-                onComplete.onFail()
+                onComplete.onFail(Throwable())
             }
         }
 
         override fun onSubscribe(d: Disposable) {}
 
         override fun onError(e: Throwable) {
-            onComplete.onFail()
+            onComplete.onFail(e)
         }
     }
 
     class OnVodCreated(private var onComplete: OnCompleteAsyncTask) : SingleObserver<DatabaseResponse>{
         override fun onSubscribe(d: Disposable) {}
         override fun onError(e: Throwable) {
-            onComplete.onFail()
+            onComplete.onFail(e)
         }
         override fun onSuccess(t: DatabaseResponse) {
             onComplete.onSuccess(t)

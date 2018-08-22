@@ -1,6 +1,7 @@
 package app.vodio.com.vodio.fragments
 
 import android.content.Context
+import android.media.SoundPool
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,15 +11,14 @@ import android.widget.Toast
 import app.vodio.com.vodio.R
 import app.vodio.com.vodio.database.DatabaseResponse
 import app.vodio.com.vodio.services.VodService
-import app.vodio.com.vodio.utils.MediaPlayerSeekbarService
-import app.vodio.com.vodio.utils.MediaPlayerSeekbarService1
+import app.vodio.com.vodio.utils.services.MediaPlayerSeekbarService1
 import app.vodio.com.vodio.utils.OnCompleteAsyncTask
+import app.vodio.com.vodio.utils.services.MediaPlayerServiceBis
 import kotlinx.android.synthetic.main.manage_vod_after_record.*
 import java.io.File
-import java.io.FileDescriptor
 
 class ManagerRecordFragment : AbstractFragment(){
-    var mediaControlService : MediaPlayerSeekbarService1? = null
+    //var mediaControlService : MediaPlayerSeekbarService1? = null
     var parentFragment : BottomRecordFragment? = null
 
     var datasource : File? = null
@@ -35,7 +35,6 @@ class ManagerRecordFragment : AbstractFragment(){
         retryVod.setOnClickListener { view ->
             parentFragment?.updateRecordUIMode()
         }
-
         modVodButton.setOnClickListener { view -> Toast.makeText(context, "not yet implemented", Toast.LENGTH_SHORT).show() }
         sendVodButton.setOnClickListener { view -> performSendVod() }
     }
@@ -43,23 +42,25 @@ class ManagerRecordFragment : AbstractFragment(){
     override fun onPause() {
         super.onPause()
         datasource = null
-        mediaControlService!!.clear()
+        //mediaControlService!!.clear()
         Log.w(this.javaClass.simpleName,"paused")
     }
     fun clear(){
-        mediaControlService?.clear()
+        //mediaControlService?.clear()
         Log.w(this.javaClass.simpleName,"cleared")
     }
 
     fun initMediaControlSeekbar(){
         Log.w(this.javaClass.simpleName,"init")
-        if(mediaControlService == null) {
+        /*if(mediaControlService == null) {
             mediaControlService = MediaPlayerSeekbarService1(context!!)
         }
         mediaControlService?.seekbar = mediaSeekbar
         mediaControlService?.setPlayPauseButton(playButton)
         if(datasource != null)
             mediaControlService!!.setSource(datasource!!)
+            */
+        MediaPlayerServiceBis.getInstance(context!!).start(datasource!!,playButton,mediaSeekbar)
 
     }
     fun setDataSource(file : File?){
@@ -82,11 +83,11 @@ class ManagerRecordFragment : AbstractFragment(){
     class OnComplete(var c : Context) : OnCompleteAsyncTask{
         override fun onSuccess(obj: Any) {
             val o = obj as DatabaseResponse
-            Toast.makeText(c,"",Toast.LENGTH_SHORT)
+            Toast.makeText(c,o.toString(),Toast.LENGTH_SHORT).show()
         }
 
-        override fun onFail() {
-            Toast.makeText(c,"failed",Toast.LENGTH_SHORT)
+        override fun onFail(t : Throwable) {
+            Toast.makeText(c,"failed : ${t}",Toast.LENGTH_SHORT).show()
         }
     }
 }

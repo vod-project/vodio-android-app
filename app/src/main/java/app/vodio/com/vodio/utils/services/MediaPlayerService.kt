@@ -1,23 +1,24 @@
-package app.vodio.com.vodio.utils
+package app.vodio.com.vodio.utils.services
 
 import android.content.Context
 import android.media.MediaPlayer
 import android.net.Uri
 import android.util.Log
+import app.vodio.com.vodio.utils.PlayPauseButton
 import java.io.File
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
 
-open class MediaPlayerService(var c : Context) {
+open class MediaPlayerService(var c : Context){
     protected val mediaExecutor = ThreadPoolExecutor(5,10,60, TimeUnit.SECONDS, LinkedBlockingQueue<Runnable>())
 
     var mediaPlayer : MediaPlayer? = null
     var state : State? = State.EMPTY
-    private var fileSource  : File? = null
+    protected var fileSource  : File? = null
     private var playPauseButton : PlayPauseButton? = null
 
-    fun setSource(file : File){
+    open fun setSource(file : File){
         reinitialize()
         fileSource = file
         state = State.SOURCED
@@ -32,7 +33,8 @@ open class MediaPlayerService(var c : Context) {
     open fun start() : Boolean{
         if(state == State.SOURCED) {
             checkParams()
-            mediaPlayer = MediaPlayer.create(c, Uri.fromFile(fileSource))
+            val uri = Uri.fromFile(fileSource)
+            mediaPlayer = MediaPlayer.create(c, uri)
             mediaPlayer?.setOnCompletionListener { mp: MediaPlayer? -> reinitialize()}
             mediaPlayer?.start()
             state = State.PLAYING

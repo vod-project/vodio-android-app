@@ -132,7 +132,7 @@ class RegisterFragment : AbstractFragment() {
             registrationSuccess()
         }
 
-        override fun onFail() {
+        override fun onFail(t : Throwable) {
             registrationFail("registration failed")
         }
     }

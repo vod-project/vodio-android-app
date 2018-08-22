@@ -16,11 +16,11 @@ class OnCompleteLogin(private val complete: OnCompleteAsyncTask) : SingleObserve
             complete.onSuccess(usr)
             LoginService.getInstance()?.loggedIn = usr
         } else {
-            complete.onFail()
+            complete.onFail(Throwable())
         }
     }
     override fun onSubscribe(d: Disposable) {}
     override fun onError(e: Throwable) {
-        complete.onFail()
+        complete.onFail(e)
     }
 }

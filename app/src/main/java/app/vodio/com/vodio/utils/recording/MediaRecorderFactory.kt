@@ -21,6 +21,7 @@ class MediaRecorderFactory{
     fun getOutputFile(mediaRecorder: MediaRecorder?) : File?{
         return fileMap.get(mediaRecorder)
     }
+
     fun create() : MediaRecorder?{
         var mediaRecorder : MediaRecorder? = null
         val outputFile = File.createTempFile("${kotlin.math.abs(Random().nextInt())}","record.aac")

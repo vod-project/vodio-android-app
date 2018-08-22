@@ -25,13 +25,13 @@ class PlayPauseButton: ImageButton , View.OnClickListener{
 
     override fun onClick(p0: View?) {
         if(onPlay){
-            if(onStop == null) Log.w("tag","onStop is not setted")
+            if(onStop == null) Log.w(javaClass.simpleName,"onStop is not setted")
             else{
                 onStop?.run()
                 setImageResource(android.R.drawable.ic_media_play)
             }
         }else{
-            if(onStart == null) Log.w("tag","onStart is not setted")
+            if(onStart == null) Log.w(javaClass.simpleName,"onStart is not setted")
             else{
                 onStart?.run()
                 setImageResource(android.R.drawable.ic_media_pause)

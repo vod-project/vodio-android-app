@@ -17,11 +17,11 @@ class OnCompleteRegister(private val complete: OnCompleteAsyncTask, private val 
             complete.onSuccess(databaseResponse)
             LoginService.getInstance()?.loggedIn = usr
         } else {
-            complete.onFail()
+            complete.onFail(Throwable())
         }
     }
     override fun onSubscribe(d: Disposable) {}
     override fun onError(e: Throwable) {
-        complete.onFail()
+        complete.onFail(e)
     }
 }

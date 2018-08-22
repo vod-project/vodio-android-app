@@ -1,13 +1,11 @@
-package app.vodio.com.vodio.utils
+package app.vodio.com.vodio.utils.services
 
-import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Context
 import android.os.Build
-import android.renderscript.Sampler
 import android.widget.SeekBar
 
-class MediaPlayerSeekbarService1(c: Context) : MediaPlayerService(c){
+open class MediaPlayerSeekbarService1(c: Context) : MediaPlayerService(c){
     var seekbar : SeekBar? = null
 
     override fun start(): Boolean {
