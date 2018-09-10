@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="@string/signal_vod"
+        android:id="@+id/signalVod" />
+
+    <item
+        android:title="@string/share_vod"
+        android:id="@+id/shareVod" />
+
+    <item
+        android:title="DELETE"
+        android:id="@+id/deleteVod" />
+
+</menu>

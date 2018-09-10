@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:id="@+id/playButtonLayout">
+        <app.vodio.com.vodio.views.PlayPauseButton
+            android:id="@+id/playButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/transparent"
+            />
+
+    </LinearLayout>
+
+
+    <SeekBar
+        android:id="@+id/mediaSeekbar"
+        android:layout_toEndOf="@id/playButtonLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+
+        />
+    <app.vodio.com.vodio.views.TimeTextView
+        android:id="@+id/progressTimeTv"
+        android:layout_below="@id/playButtonLayout"
+        android:layout_toEndOf="@id/playButtonLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:paddingLeft="10dp"
+        android:text="0:00"
+        />
+    <app.vodio.com.vodio.views.TimeTextView
+        android:id="@+id/timeTv"
+        android:layout_below="@id/playButtonLayout"
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:paddingLeft="10dp"
+        android:text="-:--"
+        />
+
+</RelativeLayout>

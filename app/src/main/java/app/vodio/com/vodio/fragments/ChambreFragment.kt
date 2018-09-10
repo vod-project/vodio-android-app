@@ -1,22 +1,18 @@
 package app.vodio.com.vodio.fragments
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
-
-import androidx.fragment.app.Fragment
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import app.vodio.com.vodio.R
 
 class ChambreFragment : AbstractFragment() {
+    override fun getIconId() : Int{
+        return iconMapping.idIcon
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+    object iconMapping{
+        const val idIcon = R.id.bedroom_navbar
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

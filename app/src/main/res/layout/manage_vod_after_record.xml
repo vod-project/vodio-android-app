@@ -6,25 +6,9 @@
     android:layout_height="match_parent"
     android:background="@android:color/transparent">
 
-    <LinearLayout
-        android:id="@+id/mediaControlLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical">
-
-        <app.vodio.com.vodio.utils.PlayPauseButton
-            android:id="@+id/playButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_media_play"
-            android:backgroundTint="@android:color/transparent" />
-        <SeekBar
-            android:id="@+id/mediaSeekbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </SeekBar>
-
-    </LinearLayout>
+    <include
+        android:id="@+id/includeMediaLayout"
+        layout="@layout/media_seekbar_layout"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,28 +17,40 @@
         app:layout_constraintRight_toLeftOf="parent"
         android:gravity="center"
         android:orientation="horizontal">
-        <Button
+        <ImageButton
             android:id="@+id/modVodButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:scaleType="fitXY"
             android:backgroundTint="@android:color/transparent"
             android:textColor="@android:color/white"
-            android:text="Modifier"/>
-        <Button
+            android:src="@drawable/ic_mod_vod"
+            android:layout_marginEnd="30dp"
+            android:text="@string/edit"/>
+        <ImageButton
             android:textColor="@android:color/white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:scaleType="fitXY"
             android:backgroundTint="@android:color/transparent"
-            android:id="@+id/retryVod"
-            android:text="Recommencer"/>
 
-        <Button
+            android:id="@+id/retryVod"
+            android:src="@drawable/ic_restart_vod"
+            android:layout_marginRight="30dp"
+            android:text="@string/edit"/>
+
+        <ImageButton
             android:textColor="@android:color/white"
             android:id="@+id/sendVodButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:scaleType="fitXY"
             android:backgroundTint="@android:color/transparent"
-            android:text="Envoyer"/>
+            android:src="@drawable/ic_send_vod"
+            android:text="@string/send"/>
     </LinearLayout>
 
 </LinearLayout>

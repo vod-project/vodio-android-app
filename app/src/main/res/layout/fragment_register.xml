@@ -7,12 +7,12 @@
     android:tag="RegisterFragmentTag"
     tools:context=".fragments.RegisterFragment">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/loginFieldsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
         android:padding="50dp">
 
         <com.google.android.material.textfield.TextInputLayout
@@ -29,12 +29,37 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/surnameEditLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Surname"
+            style="@style/fieldStyle"
+            >
+            <EditText
+                android:id="@+id/surnameFieldRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailEditLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/email_field_hint"
+            style="@style/fieldStyle">
+            <EditText
+                android:id="@+id/emailFieldRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/loginEditLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/nameEditLayout"
-            android:hint="Email"
-            style="@style/fieldStyle">
+            android:hint="Login"
+            style="@style/fieldStyle"
+            >
             <EditText
                 android:id="@+id/loginFieldRegister"
                 android:layout_width="match_parent"
@@ -45,8 +70,7 @@
             android:id="@+id/passwordEditLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/loginEditLayout"
-            android:hint="Password"
+            android:hint="@string/password_field_hint"
             style="@style/fieldStyle"
             app:passwordToggleEnabled="true">
             <EditText
@@ -62,11 +86,10 @@
             android:layout_height="wrap_content"
             style="@style/buttonBlue"
 
-            android:layout_below="@id/passwordEditLayout"
-            android:text="Register"/>
+            android:text="@string/sign_up_button_text"/>
 
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/registerProgressBar"

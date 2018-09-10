@@ -6,9 +6,9 @@
     tools:context=".activities.LoginActivity">
 
 
-   <RelativeLayout
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:id="@+id/mainLoginLayout"></RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/mainLoginLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

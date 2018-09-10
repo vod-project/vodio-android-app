@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@android:color/white"
+    style="@style/backgroundItem"
+    android:layout_marginTop="3dp"
+    android:layout_marginBottom="3dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginLeft="5dp"
+    android:paddingTop="3dp"
+    android:paddingBottom="3dp"
+    android:layout_height="wrap_content">
+
+    <Button
+        android:textAlignment="center"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:id="@+id/loginBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:textColor="@android:color/holo_blue_dark"
+        android:text="-"
+        />
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/followingYouTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/following_you"
+        android:layout_toRightOf="@id/loginBtn"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/follow"
+        android:id="@+id/followBtn"
+        android:backgroundTint="@android:color/transparent"
+        android:layout_alignParentEnd="true"/>
+
+</RelativeLayout>

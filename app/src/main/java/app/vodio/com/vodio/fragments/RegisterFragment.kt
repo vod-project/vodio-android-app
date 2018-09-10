@@ -3,23 +3,17 @@ package app.vodio.com.vodio.fragments
 
 import android.os.Bundle
 
-import com.google.android.material.textfield.TextInputLayout
-
 import androidx.fragment.app.Fragment
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 
 import app.vodio.com.vodio.R
 import app.vodio.com.vodio.activities.LoginActivity
-import app.vodio.com.vodio.services.LoginService
+import app.vodio.com.vodio.database.retrofit.repositories.LoginRepository
 import app.vodio.com.vodio.utils.AuthentificationChecker
-import app.vodio.com.vodio.utils.OnCompleteAsyncTask
+import app.vodio.com.vodio.utils.tasking.OnCompleteAsyncTask
 // Using R.layout.activity_main from the main source set
 import kotlinx.android.synthetic.main.fragment_register.*
 
@@ -29,12 +23,10 @@ import kotlinx.android.synthetic.main.fragment_register.*
  * create an instance of this fragment.
  */
 class RegisterFragment : AbstractFragment() {
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val v = inflater.inflate(R.layout.fragment_register, container, false)
-        return v
+        return inflater.inflate(R.layout.fragment_register, container, false)
     }
 
     override fun onResume() {
@@ -53,9 +45,25 @@ class RegisterFragment : AbstractFragment() {
     }
 
     private fun checkFieldsAndUpdateView(setErrorMessage: Boolean): Boolean {
-        return checkNameAndUpdateView(setErrorMessage) &&
-                checkLoginAndUpdateView(setErrorMessage) &&
+        return  checkNameAndUpdateView(setErrorMessage) && checkSurnameAndUpdateView(setErrorMessage) &&
+                checkEmailAndUpdateView(setErrorMessage) && checkLoginAndUpdateView(setErrorMessage) &&
                 checkPasswordAndUpdateView(setErrorMessage)
+    }
+
+    private fun checkLoginAndUpdateView(setErrorMessage: Boolean): Boolean {
+        val login = loginFieldRegister.text.toString()
+        var res = false
+        val list = AuthentificationChecker.checkLogin(login)
+        if (list.isEmpty()) {
+            nameEditLayout!!.error = ""
+            res = true
+        } else {
+            if (setErrorMessage) {
+                nameEditLayout!!.error = AuthentificationChecker.checkLogin(login).toString()
+            }
+            res = false
+        }
+        return res
     }
 
     private fun checkNameAndUpdateView(setErrorMessage: Boolean): Boolean {
@@ -74,10 +82,26 @@ class RegisterFragment : AbstractFragment() {
         return res
     }
 
-    private fun checkLoginAndUpdateView(setErrorMessage: Boolean): Boolean {
-        val login = loginFieldRegister.text.toString()
+    private fun checkSurnameAndUpdateView(setErrorMessage: Boolean): Boolean {
+        val name = surnameFieldRegister.text.toString()
         var res = false
-        val list = AuthentificationChecker.checkLogin(login)
+        val list = AuthentificationChecker.checkSurname(name)
+        if (list.isEmpty()) {
+            surnameEditLayout!!.error = ""
+            res = true
+        } else {
+            if (setErrorMessage) {
+                surnameEditLayout!!.error = AuthentificationChecker.checkSurname(name).toString()
+            }
+            res = false
+        }
+        return res
+    }
+
+    private fun checkEmailAndUpdateView(setErrorMessage: Boolean): Boolean {
+        val login = emailFieldRegister.text.toString()
+        var res = false
+        val list = AuthentificationChecker.checkEmail(login)
         if (list.isEmpty()) {
             loginEditLayout!!.error = ""
             res = true
@@ -108,10 +132,12 @@ class RegisterFragment : AbstractFragment() {
 
     private fun performSignUp() {
         val name = nameFieldRegister.text.toString()
+        val surname = surnameFieldRegister.text.toString()
+        val email = emailFieldRegister.text.toString()
         val login = loginFieldRegister.text.toString()
         val password = passwordFieldRegister.text.toString()
         if (checkFieldsAndUpdateView(true)) {
-            LoginService.getInstance()?.signUp(login, password, name, OnCompleteRegister())
+            LoginRepository.getInstance(context!!).signUp(login, password, name, surname, email, OnCompleteRegister())
         } else {
             registrationFail("wrong fields")
         }
@@ -137,11 +163,7 @@ class RegisterFragment : AbstractFragment() {
         }
     }
 
-    internal inner class FieldsTextWatcher : TextWatcher {
-        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-        override fun afterTextChanged(s: Editable) {
-            checkFieldsAndUpdateView(false)
-        }
+    override fun getIconId(): Int? {
+        return null
     }
-}// Required empty public constructor
+}

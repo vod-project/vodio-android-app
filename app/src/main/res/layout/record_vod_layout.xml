@@ -14,7 +14,7 @@
         android:background="@android:color/transparent"
         />
 
-    <app.vodio.com.vodio.utils.TimeTextView
+    <app.vodio.com.vodio.views.TimeTextView
         android:textColor="@android:color/white"
         android:id="@+id/timeRecordTv"
         android:layout_gravity="center"

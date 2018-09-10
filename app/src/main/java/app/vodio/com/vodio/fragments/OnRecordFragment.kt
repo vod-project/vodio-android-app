@@ -14,19 +14,24 @@ import androidx.core.content.ContextCompat
 import app.vodio.com.vodio.R
 import app.vodio.com.vodio.utils.recording.MediaRecorderFactory
 import kotlinx.android.synthetic.main.record_vod_layout.*
+import java.io.File
 import java.util.*
 
 
-class OnRecordFragment(): AbstractFragment(){
-    var timerTask : TTask? = null
-    var timer : Timer? = null
+class OnRecordFragment : AbstractFragment(){
+    private var timerTask : TTask? = null
+    private var timer : Timer? = null
     var parentFragment : BottomRecordFragment? = null
-    val MY_PERMISSIONS_RECORD_AUDIO = 10
+    private val MY_PERMISSIONS_RECORD_AUDIO = 10
 
-    var mediaRecorder : MediaRecorder? = null
+    private var mediaRecorder : MediaRecorder? = null
+
+    fun getFile() : File {
+        return MediaRecorderFactory.getInstance()?.getOutputFile(mediaRecorder)!!
+    }
 
     override fun onClick(p0: View?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        parentFragment!!.onClick(p0)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -36,17 +41,10 @@ class OnRecordFragment(): AbstractFragment(){
     override fun onResume() {
         super.onResume()
         startRecord()
-        recordVodBSF.setOnClickListener { view ->
-            run {
-                stopRecord()
-                val file = MediaRecorderFactory.getInstance()?.getOutputFile(mediaRecorder)
-                parentFragment?.setDataSource(file)
-                parentFragment?.updateManageUIMode()
-            }
-        }
+        recordVodBSF.setOnClickListener(this)
     }
 
-    fun startRecord(){
+    private fun startRecord(){
         Log.w(this.javaClass.simpleName,"try to start record")
         if(timerTask == null) timerTask = TTask()
         if(timerTask!!.started) timerTask?.cancel()
@@ -56,14 +54,15 @@ class OnRecordFragment(): AbstractFragment(){
         requestAudioPermissions()
     }
 
-    fun continueRecordAfterPermissionGranted(){
+    private fun continueRecordAfterPermissionGranted(){
+        mediaRecorder?.release() // if there is already a recorder, release it before recording
         mediaRecorder = MediaRecorderFactory.getInstance()?.create()
         mediaRecorder?.start()
         timer?.scheduleAtFixedRate(timerTask, 1000, 1000)
         Log.w(this.javaClass.simpleName,"record started")
     }
 
-    fun cancelRecordAfterPermissionNotGranted(){
+    private fun cancelRecordAfterPermissionNotGranted(){
         Log.w(this.javaClass.simpleName,"permission refused")
         stopTimer()
     }
@@ -74,7 +73,7 @@ class OnRecordFragment(): AbstractFragment(){
         Log.w(this.javaClass.simpleName,"record stopped")
     }
 
-    fun stopTimer(){
+    private fun stopTimer(){
         timerTask?.cancel()
         timer?.cancel()
         Log.w(this.javaClass.simpleName,"timer stopped")
@@ -86,7 +85,7 @@ class OnRecordFragment(): AbstractFragment(){
         Log.w(this.javaClass.simpleName,"cleared")
     }
 
-    fun requestAudioPermissions(){
+    private fun requestAudioPermissions(){
         Log.w(this.javaClass.simpleName,"request permission")
         // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(activity!!,
@@ -142,7 +141,7 @@ class OnRecordFragment(): AbstractFragment(){
         }
     }
 
-    inner class TTask : TimerTask() {
+    private inner class TTask : TimerTask() {
         var count = 0
         var started = false
         override fun run() {
@@ -150,8 +149,12 @@ class OnRecordFragment(): AbstractFragment(){
             count++
             if(context != null) {
                 val c = context as Activity
-                c.runOnUiThread(Runnable { timeRecordTv.setTime(count) })
+                c.runOnUiThread { timeRecordTv.setTime(count) }
             }
         }
+    }
+
+    override fun getIconId(): Int? {
+        return null
     }
 }

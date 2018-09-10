@@ -25,6 +25,7 @@
         android:layout_alignParentBottom="true"
         app:menu="@menu/menu_bottom_nav_bar"
         app:backgroundTint="@color/colorBottomNavBar"
+        android:backgroundTint="@color/colorBottomNavBar"
         app:morphCornerRadius="128dp"
         app:morphItemRadius="64dp"
         app:morphVerticalOffset="5dp"

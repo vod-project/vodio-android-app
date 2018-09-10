@@ -17,5 +17,17 @@
             android:icon="@drawable/ic_profile_icon_white"
             android:title="Le Meilleur de Vodio">
         </item>
+
+
+
     </group>
+
+    <item
+        android:title="SignOut"
+        android:id="@+id/signOutNav"
+        android:icon="@drawable/baseline_power_settings_new_24" />
+    <item
+        android:title="Settings"
+        android:id="@+id/settingsNav"
+        android:icon="@drawable/ic_settings_icon_black"/>
 </menu>

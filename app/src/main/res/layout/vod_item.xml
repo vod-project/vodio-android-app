@@ -4,90 +4,136 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_marginTop="3dp"
+    android:layout_marginBottom="3dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:elevation="50dp"
     style="@style/backgroundItem">
 
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/arrow_down_float"
+        android:backgroundTint="@android:color/transparent"
+        android:id="@+id/optionMenuVod"
+        android:layout_alignParentEnd="true"/>
+
     <TextView
+        android:maxLength="30"
+        android:singleLine="true"
+        android:ellipsize="end"
         android:layout_marginBottom="10dp"
         android:id="@+id/titleTv"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="title"
+        android:text="-"
+        android:textAlignment="center"
+
         android:layout_centerHorizontal="true" />
-
-    <RelativeLayout
-        android:layout_margin="15dp"
-        android:id="@+id/authorDataLayout"
+    <Button
+        android:layout_alignParentStart="true"
+        android:textAlignment="center"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:id="@+id/authorBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true">
-
-        <ImageView
-            android:id="@+id/profile_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_profile_icon_black"
-            />
-        <TextView
-            android:id="@+id/authorTv"
-            android:layout_below="@id/profile_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Mr ABCDE"/>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/mediaLayout"
-        android:layout_toEndOf="@id/authorDataLayout"
-        android:layout_toStartOf="@id/shareButton"
-        android:layout_centerVertical="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <app.vodio.com.vodio.utils.PlayPauseButton
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:id="@+id/playButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/transparent"
-            android:src="@android:drawable/ic_media_play"/>
-        <SeekBar
-            android:id="@+id/mediaSeekbar"
-            android:layout_toEndOf="@id/playButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            ></SeekBar>
-        <app.vodio.com.vodio.utils.TimeTextView
-            android:id="@+id/timeTv"
-            android:layout_below="@id/playButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="1:30"/>
-
-    </RelativeLayout>
-
-    <TextView
-        android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Commenter"
+        android:background="@android:color/transparent"
         android:textColor="@android:color/holo_blue_dark"
-        android:layout_below="@id/mediaLayout"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="10dp"
+        android:text="-"
         />
-    <ImageButton
-        android:id="@+id/shareButton"
+
+    <include layout="@layout/media_seekbar_layout"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/authorBtn"
+        android:layout_toLeftOf="@id/likeLayout"
+        android:layout_centerVertical="true"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/likeLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_menu_share"
-        android:backgroundTint="@android:color/transparent"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
+        android:gravity="center"
+        android:padding="10dp"
+        android:layout_marginLeft="5dp"
+        >
+        <ImageView
+            android:scaleType="centerInside"
+            android:id="@+id/btnLikeVod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/star_big_off"
+            android:backgroundTint="@android:color/transparent"
+            android:padding="0dp"/>
+        <TextView
+            android:id="@+id/numberOfLikeTv"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"/>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="il y a -"
+        android:id="@+id/timeVodText"
+        android:textStyle="italic"
+        android:textSize="10sp"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
         />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_marginLeft="10dp"
+                android:scaleType="fitCenter"
+                android:padding="0dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/comment"
+                android:background="@android:color/transparent"
+                android:layout_marginRight="3dp"
+                />
+            <TextView
+                android:id="@+id/numberOfCommentTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/isVodLiked"
+            android:visibility="gone"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="liked!!"/>
+
+    </LinearLayout>
 
 
 </RelativeLayout>

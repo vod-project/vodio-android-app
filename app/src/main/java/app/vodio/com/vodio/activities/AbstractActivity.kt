@@ -1,21 +1,23 @@
 package app.vodio.com.vodio.activities
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import app.vodio.com.vodio.R
 import app.vodio.com.vodio.fragments.utils.FragmentCallBack
-import java.util.*
 import com.crashlytics.android.Crashlytics
 import io.fabric.sdk.android.Fabric
-
+import java.util.*
+import app.vodio.com.vodio.utils.NetworkReceiver
+import android.net.ConnectivityManager
+import android.content.IntentFilter
+import com.google.android.material.snackbar.Snackbar
 
 
 abstract class AbstractActivity : AppCompatActivity(), FragmentCallBack {
     val fragmentsBack: Stack<Fragment> = Stack()
+    var receiver : NetworkReceiver? = null
 
     abstract fun getMainLayout(): Int
     abstract fun getBackgroundId(): Int
@@ -29,7 +31,7 @@ abstract class AbstractActivity : AppCompatActivity(), FragmentCallBack {
 
     override fun onResume() {
         super.onResume()
-        setBackgroundImage();
+        setBackgroundImage()
     }
 
     override fun onBackPressed() {

@@ -6,16 +6,17 @@ import app.vodio.com.vodio.R
 import app.vodio.com.vodio.beans.User
 import app.vodio.com.vodio.fragments.LoginFragment
 import app.vodio.com.vodio.fragments.RegisterFragment
-import app.vodio.com.vodio.services.LoginService
+import app.vodio.com.vodio.database.retrofit.repositories.LoginRepository
 
 class LoginActivity : AbstractActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var usr: User? = LoginService.getInstance()?.loggedIn
+        var usr: User? = LoginRepository.getInstance(applicationContext).getLoggedUser().value
         if (usr != null) {
-            val intent: Intent = Intent(applicationContext, HomeActivity::class.java)
-            startActivity(intent)
+            //val intent: Intent = Intent(applicationContext, HomeActivityFactory(applicationContext!!).create(false))
+            //startActivity(intent)
+            HomeActivityFactory(applicationContext).startHomeActivity()
             finish()
         } else {
             showFragment(LoginFragment(), getMainLayout())
@@ -23,12 +24,13 @@ class LoginActivity : AbstractActivity() {
     }
 
     fun authenticated() {
-        var intent: Intent = Intent(applicationContext, HomeActivity::class.java)
-        startActivity(intent)
+        //var intent = Intent(applicationContext, HomeActivityFactory.create(false))
+        //startActivity(intent)
+        HomeActivityFactory(applicationContext).startHomeActivity()
         finish()
     }
 
-    // ABstract activity
+    // Abstract activity
     override fun getMainLayout(): Int {return R.id.mainLoginLayout}
     override fun getBackgroundId(): Int {return R.drawable.background_login_light}
     override fun getLayoutContentView(): Int {return R.layout.activity_main}

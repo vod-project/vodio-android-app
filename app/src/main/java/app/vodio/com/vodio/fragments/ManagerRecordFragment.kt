@@ -1,7 +1,5 @@
 package app.vodio.com.vodio.fragments
 
-import android.content.Context
-import android.media.SoundPool
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,21 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import app.vodio.com.vodio.R
-import app.vodio.com.vodio.database.DatabaseResponse
-import app.vodio.com.vodio.services.VodService
-import app.vodio.com.vodio.utils.services.MediaPlayerSeekbarService1
-import app.vodio.com.vodio.utils.OnCompleteAsyncTask
-import app.vodio.com.vodio.utils.services.MediaPlayerServiceBis
+import app.vodio.com.vodio.beans.Vod
+import app.vodio.com.vodio.utils.MediaPlayerService
 import kotlinx.android.synthetic.main.manage_vod_after_record.*
+import kotlinx.android.synthetic.main.media_seekbar_layout.*
 import java.io.File
 
 class ManagerRecordFragment : AbstractFragment(){
-    //var mediaControlService : MediaPlayerSeekbarService1? = null
     var parentFragment : BottomRecordFragment? = null
 
-    var datasource : File? = null
-
-    override fun onClick(p0: View?) {}
+    override fun onClick(p0: View?) {
+        parentFragment!!.onClick(p0)
+    }
 
    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
        return inflater.inflate(R.layout.manage_vod_after_record, container, false)
@@ -32,62 +27,35 @@ class ManagerRecordFragment : AbstractFragment(){
     override fun onResume() {
         super.onResume()
         initMediaControlSeekbar()
-        retryVod.setOnClickListener { view ->
-            parentFragment?.updateRecordUIMode()
-        }
-        modVodButton.setOnClickListener { view -> Toast.makeText(context, "not yet implemented", Toast.LENGTH_SHORT).show() }
-        sendVodButton.setOnClickListener { view -> performSendVod() }
+        retryVod.setOnClickListener(this)
+        modVodButton.setOnClickListener(this)
+        sendVodButton.setOnClickListener(this)
     }
 
     override fun onPause() {
         super.onPause()
-        datasource = null
-        //mediaControlService!!.clear()
-        Log.w(this.javaClass.simpleName,"paused")
-    }
-    fun clear(){
-        //mediaControlService?.clear()
-        Log.w(this.javaClass.simpleName,"cleared")
+        clear()
     }
 
-    fun initMediaControlSeekbar(){
-        Log.w(this.javaClass.simpleName,"init")
-        /*if(mediaControlService == null) {
-            mediaControlService = MediaPlayerSeekbarService1(context!!)
-        }
-        mediaControlService?.seekbar = mediaSeekbar
-        mediaControlService?.setPlayPauseButton(playButton)
-        if(datasource != null)
-            mediaControlService!!.setSource(datasource!!)
-            */
-        MediaPlayerServiceBis.getInstance(context!!).start(datasource!!,playButton,mediaSeekbar)
+    fun clear(){}
 
-    }
     fun setDataSource(file : File?){
-        datasource = file
-        Log.w(this.javaClass.simpleName,"setting datasource")
+        val vod = Vod()
+        vod.setFile(file!!)
+        vod.setIsLocal(true)
+
+        parentFragment!!.vod = vod
     }
 
-    fun performSendVod(){
-        Toast.makeText(context, "not yet implemented", Toast.LENGTH_SHORT).show()
-        Log.v(this.javaClass.simpleName,"send vod from : ${datasource!!.path}")
-        if(datasource != null) {
-            Log.v(javaClass.simpleName,"data source setted")
-            VodService.getInstance(context!!)?.createVod(datasource!!, "authorLogin", "title", OnComplete(context!!))
-        }else{
-            Log.v(javaClass.simpleName,"data source null")
-        }
+    private fun initMediaControlSeekbar(){
+        val vod = parentFragment!!.vod
+        timeTv.setTime(vod!!.timeInSecond!!)
+        MediaPlayerService.getInstance(context!!).start(vod,playButton,mediaSeekbar,progressTimeTv)
+
+
     }
 
-
-    class OnComplete(var c : Context) : OnCompleteAsyncTask{
-        override fun onSuccess(obj: Any) {
-            val o = obj as DatabaseResponse
-            Toast.makeText(c,o.toString(),Toast.LENGTH_SHORT).show()
-        }
-
-        override fun onFail(t : Throwable) {
-            Toast.makeText(c,"failed : ${t}",Toast.LENGTH_SHORT).show()
-        }
+    override fun getIconId(): Int? {
+        return null
     }
 }

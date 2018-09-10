@@ -1,24 +1,19 @@
 package app.vodio.com.vodio.fragments
 
 import android.os.Bundle
-import com.google.android.material.textfield.TextInputLayout
 import androidx.fragment.app.Fragment
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.TextView
 import android.widget.Toast
 
 import app.vodio.com.vodio.R
 import app.vodio.com.vodio.activities.LoginActivity
-import app.vodio.com.vodio.services.LoginService
+import app.vodio.com.vodio.database.retrofit.repositories.LoginRepository
 import app.vodio.com.vodio.utils.AuthentificationChecker
-import app.vodio.com.vodio.utils.OnCompleteAsyncTask
+import app.vodio.com.vodio.utils.tasking.OnCompleteAsyncTask
 import kotlinx.android.synthetic.main.fragment_login.*
 
 
@@ -28,12 +23,14 @@ import kotlinx.android.synthetic.main.fragment_login.*
  * to handle interaction events.
  */
 class LoginFragment : AbstractFragment() {
+    override fun getIconId(): Int? {
+        return null
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val rootView = inflater.inflate(R.layout.fragment_login, container, false)
-        return rootView
+        return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
     override fun onResume() {
@@ -97,7 +94,7 @@ class LoginFragment : AbstractFragment() {
         val password = passwordFieldLogin.text.toString()
         loginProgressBar.visibility = View.VISIBLE
         if (checkFieldsAndUpdateView(true)) {
-            LoginService.getInstance()?.signIn(login, password, OnCompleteLogin())
+            LoginRepository.getInstance(context!!).signIn(login, password, OnCompleteLogin())
         } else {
             authenticationFail("wrong fields")
         }
@@ -132,4 +129,4 @@ class LoginFragment : AbstractFragment() {
             authenticationFail("sign in failed")
         }
     }
-}// Required empty public constructor
+}
